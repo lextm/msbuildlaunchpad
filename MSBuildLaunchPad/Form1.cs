@@ -23,7 +23,7 @@ namespace MSBuildLaunchPad
         private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
         {
             MSBuildTask task = (MSBuildTask) e.Argument;
-            e.Result = task.Execute();
+            task.Execute();
         }
 
         private void BackgroundWorker1ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -34,16 +34,9 @@ namespace MSBuildLaunchPad
         private void BackgroundWorker1RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             tsbtnStart.Enabled = true;
-            string[] data = (string[]) e.Result;
             tspbProgress.Style = ProgressBarStyle.Continuous; 
             tspbProgress.MarqueeAnimationSpeed = 0;
             tspbProgress.Value = 100;
-            if (!string.IsNullOrEmpty(data[0]))
-            {
-                MessageBox.Show(data[0]);
-            }
-            // MessageBox.Show("output: " + data[1] + "; error: " + data[0]);
-            // TODO: parse data to list view.
         }
 
         private void TsbtnStartClick(object sender, EventArgs e)

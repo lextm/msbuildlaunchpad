@@ -60,30 +60,9 @@ namespace MSBuildLaunchPad.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap _327_Options_16x16_72 {
-            get {
-                object obj = ResourceManager.GetObject("327_Options_16x16_72", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap errors {
-            get {
-                object obj = ResourceManager.GetObject("errors", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap FormRunHS {
             get {
                 object obj = ResourceManager.GetObject("FormRunHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap info {
-            get {
-                object obj = ResourceManager.GetObject("info", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -95,9 +74,9 @@ namespace MSBuildLaunchPad.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap WarningHS {
+        internal static System.Drawing.Bitmap Options {
             get {
-                object obj = ResourceManager.GetObject("WarningHS", resourceCulture);
+                object obj = ResourceManager.GetObject("Options", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

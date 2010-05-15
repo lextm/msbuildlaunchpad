@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 
 namespace MSBuildLaunchPad
 {
@@ -18,7 +19,7 @@ namespace MSBuildLaunchPad
             _configuration = task;
         }
 
-        public string[] Execute()
+        public void Execute()
         {
             string msbuild = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), string.Format(CultureInfo.InvariantCulture, @"..\Microsoft.NET\Framework\{0}\MSBuild.exe", _dotNetVersion));
             Process p = new Process
@@ -28,17 +29,15 @@ namespace MSBuildLaunchPad
                                         FileName = msbuild,
                                         WorkingDirectory = Path.GetDirectoryName(_fileName),
                                         Arguments =
-                                            string.Format(CultureInfo.InvariantCulture, "\"{0}\" {1}", _fileName, _configuration),
-                                        UseShellExecute = false,
-                                        RedirectStandardOutput = false,
-                                        RedirectStandardError = false
+                                            string.Format(CultureInfo.InvariantCulture,
+                                                          "\"{0}\" {1} /l:MSBuildErrorListLogger,\"{2}\\MSBuildShellExtension.dll\"",
+                                                          _fileName, _configuration,
+                                                          Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)),
+                                        WindowStyle = ProcessWindowStyle.Hidden
                                     }
                             };
             p.Start();
-            string error = null; // p.StandardError.ReadToEnd();
-            string output = null; //p.StandardOutput.ReadToEnd();
             p.WaitForExit();
-            return new[] { error, output };
         }
     }
 }

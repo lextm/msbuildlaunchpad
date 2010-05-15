@@ -86,21 +86,15 @@
     <None Include="Resources\FormRunHS.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WarningHS.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\errors.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\info.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\327_Options_16x16_72.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MSBuild_APPICON.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(ProjectDir)\..\lib $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
