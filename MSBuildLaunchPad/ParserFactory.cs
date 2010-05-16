@@ -12,7 +12,7 @@ namespace Lextm.MSBuildLaunchPad
                 return new SolutionParser(fileName);
             }
 
-            if (extension == ".csproj" || extension == ".vbproj" || extension == ".vcxproj" || extension == ".oxygene")
+            if (extension == ".csproj" || extension == ".vbproj" || extension == ".vcxproj" || extension == ".oxygene" || extension == ".shfbproj")
             {
                 return new MSBuildScriptParser(fileName);
             }
