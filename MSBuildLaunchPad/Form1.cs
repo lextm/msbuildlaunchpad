@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace Lextm.MSBuildLaunchPad
 {
-    public partial class Form1 : Form
+    internal partial class Form1 : Form
     {
-        public string FileName { get; set; }
+        private string FileName { get; set; }
 
         private const string Title = "MSBuild Launch Pad (Version: {1}) - {0}";
 
