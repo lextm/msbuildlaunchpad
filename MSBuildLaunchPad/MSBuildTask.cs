@@ -63,7 +63,7 @@ namespace Lextm.MSBuildLaunchPad
                 }
                 else if (version == "v4.0.30319")
                 {
-                    throw new ArgumentException("No newer MSBuild version.", "version");
+                    next = null;
                 }
                 else
                 {
