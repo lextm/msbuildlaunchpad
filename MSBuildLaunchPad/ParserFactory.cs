@@ -6,12 +6,13 @@ namespace MSBuildLaunchPad
     {
         public static IParser Parse(string fileName)
         {
-            if (Path.GetExtension(fileName) == ".sln")
+            string extension = Path.GetExtension(fileName);
+            if (extension == ".sln")
             {
                 return new SolutionParser(fileName);
             }
 
-            if (Path.GetExtension(fileName) == ".csproj")
+            if (extension == ".csproj" || extension == ".vbproj")
             {
                 return new MSBuildScriptParser(fileName);
             }

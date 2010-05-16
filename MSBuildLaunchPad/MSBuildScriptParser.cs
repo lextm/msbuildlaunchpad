@@ -12,7 +12,7 @@ namespace MSBuildLaunchPad
             | RegexOptions.Compiled
             );
 
-        private int _version;
+        private readonly int _version;
 
         public MSBuildScriptParser(string fileName)
         {
@@ -20,7 +20,7 @@ namespace MSBuildLaunchPad
             Match match = _regex.Match(content);
             if (match == null)
             {
-                throw new ArgumentException("this is not a csproj file", "fileName");
+                throw new ArgumentException("this is not a csproj/vbproj file", "fileName");
             }
 
             string msbuildVersion = match.Groups[1].Value;
@@ -38,7 +38,7 @@ namespace MSBuildLaunchPad
             }
             else
             {
-                throw new ArgumentException("this is not a csproj file", "fileName");
+                throw new ArgumentException("this is not a csproj/vbproj file", "fileName");
             }
         }
 
