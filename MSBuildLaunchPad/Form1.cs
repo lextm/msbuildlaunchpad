@@ -19,11 +19,6 @@ namespace Lextm.MSBuildLaunchPad
             InitializeComponent();
             IParser parser = ParserFactory.Parse(fileName);
             tscbVersion.SelectedIndex = parser.Version;
-
-            tscbConfiguration.Items.Add(new OptionSet("Debug", "/t:Build /p:Configuration=Debug"));
-            tscbConfiguration.Items.Add(new OptionSet("Release", "/t:Build /p:Configuration=Release"));
-            tscbConfiguration.Items.Add(new OptionSet("Clean", "/t:Clean"));
-            tscbConfiguration.SelectedIndex = 0;
         }
 
         private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
@@ -50,7 +45,7 @@ namespace Lextm.MSBuildLaunchPad
             tsbtnStart.Enabled = false;
             tspbProgress.Style = ProgressBarStyle.Marquee;
             tspbProgress.MarqueeAnimationSpeed = 30; 
-            backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, ((OptionSet)tscbConfiguration.SelectedItem).Arguments));
+            backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, string.Format(CultureInfo.InvariantCulture, @"/t:{0} /p:Configuration={1}", tscbTarget.Text, tscbConfiguration.Text)));
         }
 
         private void Form1_Load(object sender, EventArgs e)

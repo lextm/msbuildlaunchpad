@@ -30,7 +30,7 @@
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtnStart = new System.Windows.Forms.ToolStripButton();
-            this.tscbConfiguration = new System.Windows.Forms.ToolStripComboBox();
+            this.tscbTarget = new System.Windows.Forms.ToolStripComboBox();
             this.tspbProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
@@ -38,6 +38,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnSettings = new System.Windows.Forms.ToolStripButton();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.tscbConfiguration = new System.Windows.Forms.ToolStripComboBox();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -46,11 +47,12 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbtnStart,
-            this.tscbConfiguration,
-            this.tspbProgress});
+            this.tscbTarget,
+            this.tspbProgress,
+            this.tscbConfiguration});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(467, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(523, 27);
             this.toolStrip1.TabIndex = 0;
             // 
             // tsbtnStart
@@ -58,20 +60,25 @@
             this.tsbtnStart.Image = global::Lextm.MSBuildLaunchPad.Properties.Resources.FormRunHS;
             this.tsbtnStart.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnStart.Name = "tsbtnStart";
-            this.tsbtnStart.Size = new System.Drawing.Size(51, 22);
+            this.tsbtnStart.Size = new System.Drawing.Size(51, 24);
             this.tsbtnStart.Text = "Start";
             this.tsbtnStart.Click += new System.EventHandler(this.TsbtnStartClick);
             // 
-            // tscbConfiguration
+            // tscbTarget
             // 
-            this.tscbConfiguration.Name = "tscbConfiguration";
-            this.tscbConfiguration.Size = new System.Drawing.Size(120, 25);
+            this.tscbTarget.Items.AddRange(new object[] {
+            "Build",
+            "Rebuild",
+            "Clean"});
+            this.tscbTarget.Name = "tscbTarget";
+            this.tscbTarget.Size = new System.Drawing.Size(120, 27);
+            this.tscbTarget.Text = "Build";
             // 
             // tspbProgress
             // 
             this.tspbProgress.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tspbProgress.Name = "tspbProgress";
-            this.tspbProgress.Size = new System.Drawing.Size(200, 22);
+            this.tspbProgress.Size = new System.Drawing.Size(120, 24);
             // 
             // toolStrip2
             // 
@@ -80,9 +87,9 @@
             this.tscbVersion,
             this.toolStripSeparator1,
             this.tsbtnSettings});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 25);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 27);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(467, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(523, 25);
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -123,11 +130,20 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1RunWorkerCompleted);
             // 
+            // tscbConfiguration
+            // 
+            this.tscbConfiguration.Items.AddRange(new object[] {
+            "Debug",
+            "Release"});
+            this.tscbConfiguration.Name = "tscbConfiguration";
+            this.tscbConfiguration.Size = new System.Drawing.Size(120, 27);
+            this.tscbConfiguration.Text = "Debug";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(467, 50);
+            this.ClientSize = new System.Drawing.Size(523, 50);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -148,7 +164,7 @@
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton tsbtnStart;
-        private System.Windows.Forms.ToolStripComboBox tscbConfiguration;
+        private System.Windows.Forms.ToolStripComboBox tscbTarget;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripProgressBar tspbProgress;
@@ -156,6 +172,7 @@
         private System.Windows.Forms.ToolStripComboBox tscbVersion;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tsbtnSettings;
+        private System.Windows.Forms.ToolStripComboBox tscbConfiguration;
     }
 }
 
