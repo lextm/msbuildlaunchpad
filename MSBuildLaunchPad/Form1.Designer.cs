@@ -50,7 +50,7 @@
             this.tspbProgress});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(588, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(467, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // tsbtnStart
@@ -64,13 +64,8 @@
             // 
             // tscbConfiguration
             // 
-            this.tscbConfiguration.Items.AddRange(new object[] {
-            "/t:Build /p:Configuration=Debug",
-            "/t:Build /p:Configuration=Release",
-            "/t:Clean"});
             this.tscbConfiguration.Name = "tscbConfiguration";
-            this.tscbConfiguration.Size = new System.Drawing.Size(200, 25);
-            this.tscbConfiguration.Text = "/t:Build /p:Configuration=Debug";
+            this.tscbConfiguration.Size = new System.Drawing.Size(120, 25);
             // 
             // tspbProgress
             // 
@@ -87,7 +82,7 @@
             this.tsbtnSettings});
             this.toolStrip2.Location = new System.Drawing.Point(0, 25);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(588, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(467, 25);
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -132,9 +127,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 50);
+            this.ClientSize = new System.Drawing.Size(467, 50);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = global::Lextm.MSBuildLaunchPad.Properties.Resources.MSBuild_APPICON;
             this.Name = "Form1";
             this.Text = "MSBuild Launch Pad";
