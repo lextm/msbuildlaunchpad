@@ -1,17 +1,16 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Lextm.MSBuildLaunchPad
 {
-    public class SolutionParser: IParser
+    public class SolutionParser : IParser
     {
         private static readonly Regex Regex = new Regex(
             "Microsoft\\sVisual\\sStudio\\sSolution\\sFile,\\sFormat\\sVe" +
             "rsion\\s(\\d*).00",
-            RegexOptions.CultureInvariant
-            | RegexOptions.Compiled
-            );
+            RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
         private readonly int _version;
 
@@ -24,7 +23,7 @@ namespace Lextm.MSBuildLaunchPad
                 throw new ArgumentException("this is not a sln file", "fileName");
             }
 
-            int slnVersion = int.Parse(match.Groups[1].Value);
+            int slnVersion = int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
             switch (slnVersion)
             {
                 case 11:

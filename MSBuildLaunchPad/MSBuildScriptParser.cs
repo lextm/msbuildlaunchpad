@@ -8,9 +8,7 @@ namespace Lextm.MSBuildLaunchPad
     {
         private static Regex _regex = new Regex(
             "ToolsVersion=\"(\\d\\.\\d)\"",
-            RegexOptions.CultureInvariant
-            | RegexOptions.Compiled
-            );
+            RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
         private readonly int _version;
 

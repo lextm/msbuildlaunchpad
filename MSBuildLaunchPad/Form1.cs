@@ -22,13 +22,12 @@ namespace Lextm.MSBuildLaunchPad
 
         private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
         {
-            MSBuildTask task = (MSBuildTask) e.Argument;
+            MSBuildTask task = (MSBuildTask)e.Argument;
             task.Execute();
         }
 
         private void BackgroundWorker1ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-
         }
 
         private void BackgroundWorker1RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

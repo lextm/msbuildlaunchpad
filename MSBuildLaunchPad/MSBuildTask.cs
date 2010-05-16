@@ -22,19 +22,21 @@ namespace Lextm.MSBuildLaunchPad
         public void Execute()
         {
             Process p = new Process
-                            {
-                                StartInfo =
-                                    {
-                                        FileName = FindMSBuildPath(_dotNetVersion),
-                                        WorkingDirectory = Path.GetDirectoryName(_fileName),
-                                        Arguments =
-                                            string.Format(CultureInfo.InvariantCulture,
-                                                          "\"{0}\" {1} /l:MSBuildErrorListLogger,\"{2}\\MSBuildShellExtension.dll\"",
-                                                          _fileName, _configuration,
-                                                          Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)),
-                                        WindowStyle = ProcessWindowStyle.Hidden
-                                    }
-                            };
+            {
+                StartInfo =
+                {
+                    FileName = FindMSBuildPath(_dotNetVersion),
+                    WorkingDirectory = Path.GetDirectoryName(_fileName),
+                    Arguments =
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            "\"{0}\" {1} /l:MSBuildErrorListLogger,\"{2}\\MSBuildShellExtension.dll\"",
+                            _fileName,
+                            _configuration,
+                            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)),
+                    WindowStyle = ProcessWindowStyle.Hidden
+                }
+            };
             p.Start();
             p.WaitForExit();
         }
@@ -45,9 +47,10 @@ namespace Lextm.MSBuildLaunchPad
             string current;
             do
             {
-                current = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
-                              string.Format(CultureInfo.InvariantCulture,
-                                            @"..\Microsoft.NET\Framework\{0}\MSBuild.exe", next));
+                current = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.System),
+                    string.Format(CultureInfo.InvariantCulture, @"..\Microsoft.NET\Framework\{0}\MSBuild.exe", next));
+
                 // If the exact match version is not installed, switch to a newer version.
                 if (version == "v2.0.50727")
                 {
@@ -66,7 +69,8 @@ namespace Lextm.MSBuildLaunchPad
                 {
                     throw new ArgumentException("No newer MSBuild version.", "version");
                 }
-            } while (!File.Exists(current));
+            } 
+            while (!File.Exists(current));
 
             return current;
         }

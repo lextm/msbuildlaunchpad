@@ -3,13 +3,13 @@ using System.Windows.Forms;
 
 namespace Lextm.MSBuildLaunchPad
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        internal static void Main(string[] args)
         {
             if (args.Length != 1)
             {
