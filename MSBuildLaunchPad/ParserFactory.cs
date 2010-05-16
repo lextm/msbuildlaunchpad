@@ -12,7 +12,7 @@ namespace MSBuildLaunchPad
                 return new SolutionParser(fileName);
             }
 
-            if (extension == ".csproj" || extension == ".vbproj")
+            if (extension == ".csproj" || extension == ".vbproj" || extension == ".vcxproj")
             {
                 return new MSBuildScriptParser(fileName);
             }
