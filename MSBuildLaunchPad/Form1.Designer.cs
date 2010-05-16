@@ -1,4 +1,4 @@
-﻿namespace MSBuildLaunchPad
+﻿namespace Lextm.MSBuildLaunchPad
 {
     partial class Form1
     {
@@ -31,13 +31,13 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtnStart = new System.Windows.Forms.ToolStripButton();
             this.tscbConfiguration = new System.Windows.Forms.ToolStripComboBox();
+            this.tspbProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tscbVersion = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnSettings = new System.Windows.Forms.ToolStripButton();
-            this.tspbProgress = new System.Windows.Forms.ToolStripProgressBar();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -55,7 +55,7 @@
             // 
             // tsbtnStart
             // 
-            this.tsbtnStart.Image = global::MSBuildLaunchPad.Properties.Resources.FormRunHS;
+            this.tsbtnStart.Image = global::Lextm.MSBuildLaunchPad.Properties.Resources.FormRunHS;
             this.tsbtnStart.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnStart.Name = "tsbtnStart";
             this.tsbtnStart.Size = new System.Drawing.Size(51, 22);
@@ -72,6 +72,12 @@
             this.tscbConfiguration.Size = new System.Drawing.Size(200, 25);
             this.tscbConfiguration.Text = "/t:Build /p:Configuration=Debug";
             // 
+            // tspbProgress
+            // 
+            this.tspbProgress.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tspbProgress.Name = "tspbProgress";
+            this.tspbProgress.Size = new System.Drawing.Size(200, 22);
+            // 
             // toolStrip2
             // 
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -84,14 +90,6 @@
             this.toolStrip2.Size = new System.Drawing.Size(588, 25);
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1ProgressChanged);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1RunWorkerCompleted);
             // 
             // toolStripLabel2
             // 
@@ -116,17 +114,19 @@
             // 
             // tsbtnSettings
             // 
-            this.tsbtnSettings.Image = global::MSBuildLaunchPad.Properties.Resources.Options;
+            this.tsbtnSettings.Image = global::Lextm.MSBuildLaunchPad.Properties.Resources.Options;
             this.tsbtnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSettings.Name = "tsbtnSettings";
             this.tsbtnSettings.Size = new System.Drawing.Size(69, 22);
             this.tsbtnSettings.Text = "Settings";
             // 
-            // tspbProgress
+            // backgroundWorker1
             // 
-            this.tspbProgress.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tspbProgress.Name = "tspbProgress";
-            this.tspbProgress.Size = new System.Drawing.Size(200, 22);
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1RunWorkerCompleted);
             // 
             // Form1
             // 
@@ -135,7 +135,7 @@
             this.ClientSize = new System.Drawing.Size(588, 50);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
-            this.Icon = global::MSBuildLaunchPad.Properties.Resources.MSBuild_APPICON;
+            this.Icon = global::Lextm.MSBuildLaunchPad.Properties.Resources.MSBuild_APPICON;
             this.Name = "Form1";
             this.Text = "MSBuild Launch Pad";
             this.Load += new System.EventHandler(this.Form1_Load);

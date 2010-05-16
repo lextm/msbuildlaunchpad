@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace MSBuildLaunchPad
+namespace Lextm.MSBuildLaunchPad
 {
     public partial class Form1 : Form
     {

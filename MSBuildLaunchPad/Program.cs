@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace MSBuildLaunchPad
+namespace Lextm.MSBuildLaunchPad
 {
     static class Program
     {

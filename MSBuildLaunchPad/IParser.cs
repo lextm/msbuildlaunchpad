@@ -1,4 +1,4 @@
-﻿namespace MSBuildLaunchPad
+﻿namespace Lextm.MSBuildLaunchPad
 {
     public interface IParser
     {
