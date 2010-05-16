@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Lextm.MSBuildLaunchPad
@@ -41,6 +42,7 @@ namespace Lextm.MSBuildLaunchPad
             tspbProgress.Style = ProgressBarStyle.Continuous; 
             tspbProgress.MarqueeAnimationSpeed = 0;
             tspbProgress.Value = 100;
+            SetForegroundWindow(Handle);
         }
 
         private void TsbtnStartClick(object sender, EventArgs e)
@@ -55,5 +57,9 @@ namespace Lextm.MSBuildLaunchPad
         {
             Text = string.Format(CultureInfo.InvariantCulture, Title, FileName, Assembly.GetExecutingAssembly().GetName().Version);
         }
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern void SetForegroundWindow(IntPtr handle);
     }
 }
