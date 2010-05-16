@@ -28,7 +28,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -80,9 +80,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="register.reg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\FormRunHS.png" />
   </ItemGroup>
   <ItemGroup>
@@ -93,7 +90,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)\..\lib $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>copy $(ProjectDir)\..\lib $(TargetDir)
+copy $(ProjectDir)\Resources\MSBuild_APPICON.ico $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
