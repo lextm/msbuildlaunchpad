@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuildLaunchPad", "MSBuildLaunchPad\MSBuildLaunchPad.csproj", "{5A146EA4-0A23-46C5-B857-BDEA095F4A8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPadCore", "LaunchPadCore\LaunchPadCore.csproj", "{EE3AD176-FB46-4D40-91FB-D2316E9DA22E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{861A1DDA-A7B1-4730-AE29-AE4CD15E0C97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +17,14 @@ Global
 		{5A146EA4-0A23-46C5-B857-BDEA095F4A8D}.Debug|x86.Build.0 = Debug|x86
 		{5A146EA4-0A23-46C5-B857-BDEA095F4A8D}.Release|x86.ActiveCfg = Release|x86
 		{5A146EA4-0A23-46C5-B857-BDEA095F4A8D}.Release|x86.Build.0 = Release|x86
+		{EE3AD176-FB46-4D40-91FB-D2316E9DA22E}.Debug|x86.Build.0 = Debug|Any CPU
+		{EE3AD176-FB46-4D40-91FB-D2316E9DA22E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EE3AD176-FB46-4D40-91FB-D2316E9DA22E}.Release|x86.Build.0 = Release|Any CPU
+		{EE3AD176-FB46-4D40-91FB-D2316E9DA22E}.Release|x86.ActiveCfg = Release|Any CPU
+		{861A1DDA-A7B1-4730-AE29-AE4CD15E0C97}.Debug|x86.Build.0 = Debug|Any CPU
+		{861A1DDA-A7B1-4730-AE29-AE4CD15E0C97}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{861A1DDA-A7B1-4730-AE29-AE4CD15E0C97}.Release|x86.Build.0 = Release|Any CPU
+		{861A1DDA-A7B1-4730-AE29-AE4CD15E0C97}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

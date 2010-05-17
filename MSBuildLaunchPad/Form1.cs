@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace Lextm.MSBuildLaunchPad
 {
@@ -19,6 +20,17 @@ namespace Lextm.MSBuildLaunchPad
             InitializeComponent();
             IParser parser = ParserFactory.Parse(fileName);
             tscbVersion.SelectedIndex = parser.Version;
+
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\LeXtudio\MSBuildLaunchPad\MainForm");
+            if (key == null)
+            {
+                return;
+            }
+
+            tscbTarget.Text = key.GetValue("Target", "Build").ToString();
+            tscbConfiguration.Text = key.GetValue("Configuration", "Debug").ToString();
+            tsbtnAutoHide.Checked = Convert.ToBoolean(key.GetValue("AutoHide", "True"));
+            tsbtnShowPrompt.Checked = Convert.ToBoolean(key.GetValue("ShowPrompt", "False"));
         }
 
         private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
@@ -38,6 +50,10 @@ namespace Lextm.MSBuildLaunchPad
             tspbProgress.MarqueeAnimationSpeed = 0;
             tspbProgress.Value = 100;
             SetForegroundWindow(Handle);
+            if (tsbtnAutoHide.Checked)
+            {
+                timer1.Enabled = true;
+            }
         }
 
         private void TsbtnStartClick(object sender, EventArgs e)
@@ -45,7 +61,7 @@ namespace Lextm.MSBuildLaunchPad
             tsbtnStart.Enabled = false;
             tspbProgress.Style = ProgressBarStyle.Marquee;
             tspbProgress.MarqueeAnimationSpeed = 30; 
-            backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, string.Format(CultureInfo.InvariantCulture, @"/t:{0} /p:Configuration={1}", tscbTarget.Text, tscbConfiguration.Text)));
+            backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, string.Format(CultureInfo.InvariantCulture, @"/t:{0} /p:Configuration={1}", tscbTarget.Text, tscbConfiguration.Text), tsbtnShowPrompt.Checked));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -56,5 +72,24 @@ namespace Lextm.MSBuildLaunchPad
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern void SetForegroundWindow(IntPtr handle);
+
+        private void Timer1Tick(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\LeXtudio\MSBuildLaunchPad\MainForm");
+            if (key == null)
+            {
+                return;
+            }
+
+            key.SetValue("Target", tscbTarget.Text);
+            key.SetValue("Configuration", tscbConfiguration.Text);
+            key.SetValue("AutoHide", tsbtnAutoHide.Checked.ToString());
+            key.SetValue("ShowPrompt", tsbtnShowPrompt.Checked.ToString());
+        }
     }
 }

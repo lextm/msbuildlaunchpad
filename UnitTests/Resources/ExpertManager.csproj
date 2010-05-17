@@ -1,0 +1,168 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectGuid>{789A4DFB-08AA-4912-BA1F-9938F85B3A3C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ExpertManager</RootNamespace>
+    <AssemblyName>ExpertManager</AssemblyName>
+    <ApplicationIcon>data\images\sbt.ico</ApplicationIcon>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>False</DelaySign>
+    <AssemblyOriginatorKeyFile>lextmkeyfiles\PublicPrivateKeyFile.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <LangVersion>default</LangVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>False</NoStdLib>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <BaseAddress>285212672</BaseAddress>
+    <UseLauncher>False</UseLauncher>
+    <LoadAllSymbols>True</LoadAllSymbols>
+    <LoadUnspecifiedSymbols>False</LoadUnspecifiedSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+  <ItemGroup>
+    <Reference Include="System">
+      <AssemblyName>System</AssemblyName>
+      <Version>2.0.0.0</Version>
+      <HintPath>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.dll</HintPath>
+      <AssemblyTag>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.dll</AssemblyTag>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <AssemblyName>System.Windows.Forms</AssemblyName>
+      <Version>2.0.0.0</Version>
+      <HintPath>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll</HintPath>
+      <AssemblyTag>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll</AssemblyTag>
+    </Reference>
+    <Reference Include="UnhandledExceptionManager">
+      <SpecificVersion>False</SpecificVersion>
+      <AssemblyName>UnhandledExceptionManager</AssemblyName>
+      <Version>2.0.0.0</Version>
+      <HintPath>lib\UnhandledExceptionManager.dll</HintPath>
+      <AssemblyTag>lib\UnhandledExceptionManager.dll</AssemblyTag>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <BorlandProject>
+      <BorlandProject>
+        <CSharp.Personality>
+          <Options>
+            <Options Name="AspNetUseHostServer">False</Options>
+            <Options Name="AspNetLaunchBrowser">False</Options>
+            <Options Name="AspNetStartPage">
+            </Options>
+            <Options Name="AspNetHostServer">IIS</Options>
+            <Options Name="AspNetCassiniPortIndex">0</Options>
+            <Options Name="AspNetCassiniStartup">
+            </Options>
+            <Options Name="AspNetIISVirtualDirectory">
+            </Options>
+            <Options Name="AspNetHTTPAddress">
+            </Options>
+            <Options Name="AspNetCassiniHTTPAddress">
+            </Options>
+          </Options>
+        </CSharp.Personality>
+      </BorlandProject>
+    </BorlandProject>
+    <VisualStudio />
+  </ProjectExtensions>
+  <ItemGroup>
+    <ProjectReference Include="Lextm.Common.csproj">
+      <Name>Lextm.Common</Name>
+      <Project>{AA2C7296-5F3B-402D-BD8B-C1C80F7E6AD9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Lextm.OpenTools.Core.csproj">
+      <Name>Lextm.OpenTools.Core</Name>
+      <Project>{6BFB3BB2-4C5A-43CD-8FBA-020F0584437E}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Lextm.Utilities.Plus.csproj">
+      <Name>Lextm.Utilities.Plus</Name>
+      <Project>{D91FA589-45B5-4F79-9EF7-4E8C88F3939F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Lextm.Windows.Forms.csproj">
+      <Project>{884079DE-160F-4E17-9634-7BAC3DAFCC34}</Project>
+      <Name>Lextm.Windows.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="thirdparties\Office2007Renderer\Office2007Renderer.csproj">
+      <Project>{A3E7CEE0-EA2C-443F-9E8F-2A40FDB4AF86}</Project>
+      <Name>Office2007Renderer</Name>
+    </ProjectReference>
+    <ProjectReference Include="ThirdParty.csproj">
+      <Name>ThirdParty</Name>
+      <Project>{BC328F36-A346-4171-822B-240104733760}</Project>
+    </ProjectReference>
+    <Compile Include="src\assemblyinfo\Common.cs" />
+    <Compile Include="src\assemblyinfo\LeXtudio.cs" />
+    <Compile Include="src\assemblyinfo\Utilities.cs" />
+    <Compile Include="src\lextm\utilities\ExpertManagerEntry.cs" />
+    <None Include="ExpertManager.exe.manifest" />
+    <None Include="lextmkeyfiles\PublicPrivateKeyFile.snk" />
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Install>true</Install>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Install>false</Install>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>

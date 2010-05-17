@@ -60,9 +60,23 @@ namespace Lextm.MSBuildLaunchPad.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Close {
+            get {
+                object obj = ResourceManager.GetObject("Close", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap FormRunHS {
             get {
                 object obj = ResourceManager.GetObject("FormRunHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap FullView {
+            get {
+                object obj = ResourceManager.GetObject("FullView", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
