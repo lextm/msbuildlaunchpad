@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -43,6 +44,11 @@ namespace Lextm.MSBuildLaunchPad
         public int Version
         {
             get { return _version; }
+        }
+
+        public ICollection<string> Targets
+        {
+            get { return new[] { "Build", "Rebuild", "Clean" }; }
         }
     }
 }

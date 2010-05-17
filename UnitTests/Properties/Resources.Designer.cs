@@ -60,6 +60,13 @@ namespace Lextm.MSBuildLaunchPad.UnitTests.Properties {
             }
         }
         
+        internal static byte[] build {
+            get {
+                object obj = ResourceManager.GetObject("build", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to &lt;Project DefaultTargets=&quot;Build&quot; xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
         ///  &lt;PropertyGroup&gt;

@@ -20,6 +20,10 @@ namespace Lextm.MSBuildLaunchPad
             InitializeComponent();
             IParser parser = ParserFactory.Parse(fileName);
             tscbVersion.SelectedIndex = parser.Version;
+            foreach (var target in parser.Targets)
+            {
+                tscbTarget.Items.Add(target);
+            }
 
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\LeXtudio\MSBuildLaunchPad\MainForm");
             if (key == null)
@@ -29,7 +33,7 @@ namespace Lextm.MSBuildLaunchPad
 
             tscbTarget.Text = key.GetValue("Target", "Build").ToString();
             tscbConfiguration.Text = key.GetValue("Configuration", "Debug").ToString();
-            tsbtnAutoHide.Checked = Convert.ToBoolean(key.GetValue("AutoHide", "True"));
+            tsbtnAutoHide.Checked = Convert.ToBoolean(key.GetValue("AutoHide", "False"));
             tsbtnShowPrompt.Checked = Convert.ToBoolean(key.GetValue("ShowPrompt", "False"));
         }
 

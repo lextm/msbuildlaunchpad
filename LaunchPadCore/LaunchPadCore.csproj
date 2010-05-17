@@ -39,6 +39,7 @@
     <Compile Include="..\MSBuildLaunchPad\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="GenericScriptParser.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="MSBuildScriptParser.cs" />
     <Compile Include="MSBuildTask.cs" />

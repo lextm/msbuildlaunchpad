@@ -69,10 +69,6 @@
             // 
             // tscbTarget
             // 
-            this.tscbTarget.Items.AddRange(new object[] {
-            "Build",
-            "Rebuild",
-            "Clean"});
             this.tscbTarget.Name = "tscbTarget";
             this.tscbTarget.Size = new System.Drawing.Size(120, 27);
             this.tscbTarget.Text = "Build";

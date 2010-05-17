@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericScriptParserTest.cs" />
     <Compile Include="MSBuildScriptParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -56,6 +57,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\build.proj" />
     <None Include="Resources\DomainModel.csproj" />
   </ItemGroup>
   <ItemGroup>

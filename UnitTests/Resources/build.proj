@@ -1,0 +1,44 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import  Project=".\Deps\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+	<PropertyGroup>
+		<MainSolution>.\MSBuildShellExtension.sln</MainSolution>
+		<NUnitPath>.\Deps\NUnit\bin\nunit-console.exe</NUnitPath>
+		<NCoverPath>.\Deps\NCover\NCover.Console.exe</NCoverPath>
+		<NSISPath>"$(ProgramFiles)\NSIS\makensis.exe"</NSISPath>
+		<TestAssembly>.\Test\bin\Debug\Test.dll</TestAssembly>
+		<ReleaseDirectory>.\release</ReleaseDirectory>
+	</PropertyGroup>
+	<Target Name="Build">
+		<MSBuild Projects="$(MainSolution)" Targets="Build" />
+	</Target>
+	<Target Name="Clean">
+		<MSBuild Projects="$(MainSolution)" Targets="Clean" />
+	</Target>
+	<Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+	<Target Name="Test" DependsOnTargets="Build">
+		<Exec Command="$(NUnitPath) $(TestAssembly)" />
+	</Target>
+	<Target Name="Coverage" DependsOnTargets="Build">
+		<Exec Command="$(NCoverPath) $(NUnitPath) $(TestAssembly)" />
+	</Target>
+	<!--Releases a new edition of MSBuildShellExtension.
+	    Dependant of installations of subversion and nsis.
+		Also SvnBridge is required to run!-->
+	<Target Name="Release" Condition="$(Version) != ''">
+		<RemoveDir Directories="$(ReleaseDirectory)" />
+
+		<MakeDir Directories="$(ReleaseDirectory)" />
+		<SvnCheckout RepositoryPath="http://localhost:8081/msbuildshellex" LocalPath="$(ReleaseDirectory)">
+			<Output TaskParameter="Revision" PropertyName="Revision" />
+		</SvnCheckout>
+		<CreateItem Include="$(ReleaseDirectory)\MSBuildShellExtension\**\AssemblyInfo.cs;$(ReleaseDirectory)\MSBuildShellExtensionConfigurator\**\AssemblyInfo.cs">
+			<Output TaskParameter="Include" ItemName="AssemblyInfos" />
+		</CreateItem>
+		<Message Text="@(AssemblyInfos)" />
+		<!--FileUpdate Files='@(AssemblyInfos)' Regex='(?&lt;ver&gt;assembly: Assembly.*?Version\(")\d+\.\d+\.\d+\.\d+' ReplacementText='$(Version).$(Revision)' /-->
+		<Message Text="Building $(Revision) $(ReleaseDirectory)\build.proj" />
+		<MSBuild Projects="$(ReleaseDirectory)\build.proj" Targets="Rebuild;Test" />
+		<Exec Command="$(NSISPath) $(ReleaseDirectory)\install.nsi" />
+		<Copy SourceFiles="$(ReleaseDirectory)\Setup.exe" DestinationFiles=".\MSBuildShellExtension-$(Version).exe" />
+	</Target>
+</Project>

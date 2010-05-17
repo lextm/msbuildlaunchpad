@@ -4,17 +4,18 @@ using System.Xml;
 
 namespace Lextm.MSBuildLaunchPad
 {
-    public class MSBuildScriptParser : IParser
+    public class GenericScriptParser : IParser
     {
         private readonly int _version;
+        private readonly IList<string> _list = new List<string>();
 
-        public MSBuildScriptParser(string fileName)
+        public GenericScriptParser(string fileName)
         {
             XmlDocument file = new XmlDocument();
             file.Load(fileName);
             if (file.DocumentElement == null || file.DocumentElement.Name != "Project")
             {
-                throw new ArgumentException("this is not a csproj/vbproj file", "fileName");
+                throw new ArgumentException("this is not a proj file", "fileName");
             }
 
             string attribute = file.DocumentElement.GetAttribute("ToolsVersion");
@@ -32,7 +33,21 @@ namespace Lextm.MSBuildLaunchPad
             }
             else
             {
-                throw new ArgumentException("this is not a csproj/vbproj file", "fileName");
+                throw new ArgumentException("this is not a proj file", "fileName");
+            }
+
+            foreach (XmlNode node in file.DocumentElement.ChildNodes)
+            {
+                if (node.Name == "Target")
+                {
+                    XmlAttribute name = node.Attributes["Name"];
+                    if (name == null)
+                    {
+                        continue;
+                    }
+
+                    _list.Add(name.Value);
+                }
             }
         }
 
@@ -43,7 +58,7 @@ namespace Lextm.MSBuildLaunchPad
 
         public ICollection<string> Targets
         {
-            get { return new[] { "Build", "Rebuild", "Clean" }; }
+            get { return _list; }
         }
     }
 }

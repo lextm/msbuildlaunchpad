@@ -17,6 +17,11 @@ namespace Lextm.MSBuildLaunchPad
                 return new MSBuildScriptParser(fileName);
             }
 
+            if (extension == ".proj")
+            {
+                return new GenericScriptParser(fileName);
+            }
+
             return null;
         }
     }
