@@ -24,11 +24,17 @@ namespace Lextm.MSBuildLaunchPad
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         public void Execute()
         {
+            string msBuildPath = FindMSBuildPath(_dotNetVersion);
+            if (msBuildPath == null)
+            {
+                return;
+            }
+
             Process p = new Process
             {
                 StartInfo =
                 {
-                    FileName = FindMSBuildPath(_dotNetVersion),
+                    FileName = msBuildPath,
                     WorkingDirectory = Path.GetDirectoryName(_fileName),
                     Arguments =
                         string.Format(
@@ -70,8 +76,8 @@ namespace Lextm.MSBuildLaunchPad
                 }
                 else
                 {
-                    // TODO: handle this exception gracefully.
-                    throw new ArgumentException("No newer MSBuild version.", "version");
+                    // no msbuild found.
+                    return null;
                 }
             } 
             while (!File.Exists(current));
