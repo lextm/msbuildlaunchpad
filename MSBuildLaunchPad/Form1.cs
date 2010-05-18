@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
@@ -33,8 +32,8 @@ namespace Lextm.MSBuildLaunchPad
 
             tscbTarget.Text = key.GetValue("Target", "Build").ToString();
             tscbConfiguration.Text = key.GetValue("Configuration", "Debug").ToString();
-            tsbtnAutoHide.Checked = Convert.ToBoolean(key.GetValue("AutoHide", "False"));
-            tsbtnShowPrompt.Checked = Convert.ToBoolean(key.GetValue("ShowPrompt", "False"));
+            tsbtnAutoHide.Checked = Convert.ToBoolean(key.GetValue("AutoHide", "False"), CultureInfo.InvariantCulture);
+            tsbtnShowPrompt.Checked = Convert.ToBoolean(key.GetValue("ShowPrompt", "False"), CultureInfo.InvariantCulture);
         }
 
         private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
@@ -53,10 +52,10 @@ namespace Lextm.MSBuildLaunchPad
             tspbProgress.Style = ProgressBarStyle.Continuous; 
             tspbProgress.MarqueeAnimationSpeed = 0;
             tspbProgress.Value = 100;
-            SetForegroundWindow(Handle);
+            NativeMethods.SetForegroundWindow(Handle);
             if (tsbtnAutoHide.Checked)
             {
-                timer1.Enabled = true;
+                Close();
             }
         }
 
@@ -71,15 +70,6 @@ namespace Lextm.MSBuildLaunchPad
         private void Form1_Load(object sender, EventArgs e)
         {
             Text = string.Format(CultureInfo.InvariantCulture, Title, FileName, Assembly.GetExecutingAssembly().GetName().Version);
-        }
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern void SetForegroundWindow(IntPtr handle);
-
-        private void Timer1Tick(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

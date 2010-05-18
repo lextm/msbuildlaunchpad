@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtnStart = new System.Windows.Forms.ToolStripButton();
             this.tscbTarget = new System.Windows.Forms.ToolStripComboBox();
@@ -41,7 +40,6 @@
             this.tsbtnShowPrompt = new System.Windows.Forms.ToolStripButton();
             this.tsbtnAutoHide = new System.Windows.Forms.ToolStripButton();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -134,9 +132,7 @@
             // 
             // tsbtnAutoHide
             // 
-            this.tsbtnAutoHide.Checked = true;
             this.tsbtnAutoHide.CheckOnClick = true;
-            this.tsbtnAutoHide.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsbtnAutoHide.Image = global::Lextm.MSBuildLaunchPad.Properties.Resources.Close;
             this.tsbtnAutoHide.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnAutoHide.Name = "tsbtnAutoHide";
@@ -150,11 +146,6 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1RunWorkerCompleted);
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 3000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
             // Form1
             // 
@@ -192,7 +183,6 @@
         private System.Windows.Forms.ToolStripComboBox tscbConfiguration;
         private System.Windows.Forms.ToolStripButton tsbtnShowPrompt;
         private System.Windows.Forms.ToolStripButton tsbtnAutoHide;
-        private System.Windows.Forms.Timer timer1;
     }
 }
 

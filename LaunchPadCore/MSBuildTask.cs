@@ -21,6 +21,7 @@ namespace Lextm.MSBuildLaunchPad
             _showPrompt = showPrompt;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         public void Execute()
         {
             Process p = new Process
@@ -36,7 +37,7 @@ namespace Lextm.MSBuildLaunchPad
                             _fileName,
                             _configuration,
                             Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)),
-                    WindowStyle = _showPrompt? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden
+                    WindowStyle = _showPrompt ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden
                 }
             };
             p.Start();
