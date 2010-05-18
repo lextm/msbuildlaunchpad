@@ -38,16 +38,18 @@ namespace Lextm.MSBuildLaunchPad
 
             foreach (XmlNode node in file.DocumentElement.ChildNodes)
             {
-                if (node.Name == "Target")
+                if (node.Name != "Target")
                 {
-                    XmlAttribute name = node.Attributes["Name"];
-                    if (name == null)
-                    {
-                        continue;
-                    }
-
-                    _list.Add(name.Value);
+                    continue;
                 }
+
+                XmlAttribute name = node.Attributes["Name"];
+                if (name == null)
+                {
+                    continue;
+                }
+
+                _list.Add(name.Value);
             }
         }
 
