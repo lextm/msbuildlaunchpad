@@ -24,16 +24,27 @@ namespace Lextm.MSBuildLaunchPad
                 tscbTarget.Items.Add(target);
             }
 
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\LeXtudio\MSBuildLaunchPad\MainForm");
-            if (key == null)
+            RegistryKey options = Registry.CurrentUser.OpenSubKey(@"Software\LeXtudio\MSBuildLaunchPad\MainForm");
+            if (options == null)
             {
                 return;
             }
 
-            tscbTarget.Text = key.GetValue("Target", "Build").ToString();
-            tscbConfiguration.Text = key.GetValue("Configuration", "Debug").ToString();
-            tsbtnAutoHide.Checked = Convert.ToBoolean(key.GetValue("AutoHide", "False"), CultureInfo.InvariantCulture);
-            tsbtnShowPrompt.Checked = Convert.ToBoolean(key.GetValue("ShowPrompt", "False"), CultureInfo.InvariantCulture);
+            tscbTarget.Text = options.GetValue("Target", "Build").ToString();
+            tscbConfiguration.Text = options.GetValue("Configuration", "Debug").ToString();
+            tsbtnAutoHide.Checked = Convert.ToBoolean(options.GetValue("AutoHide", "False"), CultureInfo.InvariantCulture);
+            tsbtnShowPrompt.Checked = Convert.ToBoolean(options.GetValue("ShowPrompt", "False"), CultureInfo.InvariantCulture);
+            
+            RegistryKey editor = Registry.CurrentUser.OpenSubKey(@"Software\Ardal\MSBuildShellExtension\Editors\Notepad");
+            if (editor != null)
+            {
+                return;
+            }
+            
+            editor = Registry.CurrentUser.CreateSubKey(@"Software\Ardal\MSBuildShellExtension\Editors\Notepad");
+            editor.SetValue("Arguments", "{file}");
+            editor.SetValue("DefaultEditor", "True");
+            editor.SetValue("Filename", "notepad.exe");
         }
 
         private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
