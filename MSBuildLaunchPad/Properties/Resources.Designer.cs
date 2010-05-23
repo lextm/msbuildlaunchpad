@@ -81,6 +81,13 @@ namespace Lextm.MSBuildLaunchPad.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Help {
+            get {
+                object obj = ResourceManager.GetObject("Help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Icon MSBuild_APPICON {
             get {
                 object obj = ResourceManager.GetObject("MSBuild_APPICON", resourceCulture);

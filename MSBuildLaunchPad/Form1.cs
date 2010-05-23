@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -12,6 +13,7 @@ namespace Lextm.MSBuildLaunchPad
         private string FileName { get; set; }
 
         private const string Title = "MSBuild Launch Pad (Version: {1}) - {0}";
+        private const string PadKey = @"Software\LeXtudio\MSBuildLaunchPad\MainForm";
 
         public Form1(string fileName)
         {
@@ -24,7 +26,8 @@ namespace Lextm.MSBuildLaunchPad
                 tscbTarget.Items.Add(target);
             }
 
-            RegistryKey options = Registry.CurrentUser.OpenSubKey(@"Software\LeXtudio\MSBuildLaunchPad\MainForm");
+            // restore settings
+            RegistryKey options = Registry.CurrentUser.OpenSubKey(PadKey);
             if (options == null)
             {
                 return;
@@ -41,7 +44,13 @@ namespace Lextm.MSBuildLaunchPad
                 return;
             }
             
+            // Fill in editor registry keys for MSBuildShellExtension.
             editor = Registry.CurrentUser.CreateSubKey(@"Software\Ardal\MSBuildShellExtension\Editors\Notepad");
+            if (editor == null)
+            {
+                return;
+            }
+
             editor.SetValue("Arguments", "{file}");
             editor.SetValue("DefaultEditor", "True");
             editor.SetValue("Filename", "notepad.exe");
@@ -51,10 +60,6 @@ namespace Lextm.MSBuildLaunchPad
         {
             MSBuildTask task = (MSBuildTask)e.Argument;
             task.Execute();
-        }
-
-        private void BackgroundWorker1ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
         }
 
         private void BackgroundWorker1RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -80,12 +85,13 @@ namespace Lextm.MSBuildLaunchPad
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Text = string.Format(CultureInfo.InvariantCulture, Title, FileName, Assembly.GetExecutingAssembly().GetName().Version);
+            Text = string.Format(CultureInfo.InvariantCulture, Title, Path.GetFileName(FileName), Assembly.GetExecutingAssembly().GetName().Version);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\LeXtudio\MSBuildLaunchPad\MainForm");
+            // save settings
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(PadKey);
             if (key == null)
             {
                 return;
@@ -95,6 +101,11 @@ namespace Lextm.MSBuildLaunchPad
             key.SetValue("Configuration", tscbConfiguration.Text);
             key.SetValue("AutoHide", tsbtnAutoHide.Checked.ToString());
             key.SetValue("ShowPrompt", tsbtnShowPrompt.Checked.ToString());
+        }
+
+        private void TsbtnAboutClick(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, "http://msbuildlaunchpad.codeplex.com");
         }
     }
 }

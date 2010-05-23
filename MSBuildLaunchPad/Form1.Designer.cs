@@ -33,6 +33,7 @@
             this.tscbTarget = new System.Windows.Forms.ToolStripComboBox();
             this.tspbProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.tscbConfiguration = new System.Windows.Forms.ToolStripComboBox();
+            this.tsbtnAbout = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tscbVersion = new System.Windows.Forms.ToolStripComboBox();
@@ -50,7 +51,8 @@
             this.tsbtnStart,
             this.tscbTarget,
             this.tspbProgress,
-            this.tscbConfiguration});
+            this.tscbConfiguration,
+            this.tsbtnAbout});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(523, 27);
@@ -86,6 +88,16 @@
             this.tscbConfiguration.Size = new System.Drawing.Size(120, 27);
             this.tscbConfiguration.Text = "Debug";
             // 
+            // tsbtnAbout
+            // 
+            this.tsbtnAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnAbout.Image = global::Lextm.MSBuildLaunchPad.Properties.Resources.Help;
+            this.tsbtnAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnAbout.Name = "tsbtnAbout";
+            this.tsbtnAbout.Size = new System.Drawing.Size(23, 24);
+            this.tsbtnAbout.Text = "About";
+            this.tsbtnAbout.Click += new System.EventHandler(this.TsbtnAboutClick);
+            // 
             // toolStrip2
             // 
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -103,7 +115,7 @@
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(51, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(43, 22);
             this.toolStripLabel2.Text = "MSBuild";
             // 
             // tscbVersion
@@ -127,7 +139,7 @@
             this.tsbtnShowPrompt.Image = global::Lextm.MSBuildLaunchPad.Properties.Resources.FullView;
             this.tsbtnShowPrompt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnShowPrompt.Name = "tsbtnShowPrompt";
-            this.tsbtnShowPrompt.Size = new System.Drawing.Size(99, 22);
+            this.tsbtnShowPrompt.Size = new System.Drawing.Size(90, 22);
             this.tsbtnShowPrompt.Text = "Show Prompt";
             // 
             // tsbtnAutoHide
@@ -136,7 +148,7 @@
             this.tsbtnAutoHide.Image = global::Lextm.MSBuildLaunchPad.Properties.Resources.Close;
             this.tsbtnAutoHide.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnAutoHide.Name = "tsbtnAutoHide";
-            this.tsbtnAutoHide.Size = new System.Drawing.Size(81, 22);
+            this.tsbtnAutoHide.Size = new System.Drawing.Size(74, 22);
             this.tsbtnAutoHide.Text = "Auto Hide";
             // 
             // backgroundWorker1
@@ -144,7 +156,6 @@
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1RunWorkerCompleted);
             // 
             // Form1
@@ -183,6 +194,7 @@
         private System.Windows.Forms.ToolStripComboBox tscbConfiguration;
         private System.Windows.Forms.ToolStripButton tsbtnShowPrompt;
         private System.Windows.Forms.ToolStripButton tsbtnAutoHide;
+        private System.Windows.Forms.ToolStripButton tsbtnAbout;
     }
 }
 
