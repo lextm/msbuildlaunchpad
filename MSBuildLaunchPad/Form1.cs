@@ -26,7 +26,7 @@ namespace Lextm.MSBuildLaunchPad
                 tscbTarget.Items.Add(target);
             }
 
-            // restore settings
+            // Restore settings
             RegistryKey options = Registry.CurrentUser.OpenSubKey(PadKey);
             if (options == null)
             {
@@ -35,16 +35,18 @@ namespace Lextm.MSBuildLaunchPad
 
             tscbTarget.Text = options.GetValue("Target", "Build").ToString();
             tscbConfiguration.Text = options.GetValue("Configuration", "Debug").ToString();
+            tscbPlatform.Text = options.GetValue("Platform", "AnyCPU").ToString();
             tsbtnAutoHide.Checked = Convert.ToBoolean(options.GetValue("AutoHide", "False"), CultureInfo.InvariantCulture);
             tsbtnShowPrompt.Checked = Convert.ToBoolean(options.GetValue("ShowPrompt", "False"), CultureInfo.InvariantCulture);
             
+            // Find MSBuild Shell Extension settings.
             RegistryKey editor = Registry.CurrentUser.OpenSubKey(@"Software\Ardal\MSBuildShellExtension\Editors\Notepad");
             if (editor != null)
             {
                 return;
             }
             
-            // Fill in editor registry keys for MSBuildShellExtension.
+            // Fill in editor registry keys for MSBuild Shell Extension if it was not installed.
             editor = Registry.CurrentUser.CreateSubKey(@"Software\Ardal\MSBuildShellExtension\Editors\Notepad");
             if (editor == null)
             {
@@ -80,7 +82,7 @@ namespace Lextm.MSBuildLaunchPad
             tsbtnStart.Enabled = false;
             tspbProgress.Style = ProgressBarStyle.Marquee;
             tspbProgress.MarqueeAnimationSpeed = 30; 
-            backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, string.Format(CultureInfo.InvariantCulture, @"/t:{0} /p:Configuration={1}", tscbTarget.Text, tscbConfiguration.Text), tsbtnShowPrompt.Checked));
+            backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, string.Format(CultureInfo.InvariantCulture, @"/t:{0} /p:Configuration={1} /p:Platform={2}", tscbTarget.Text, tscbConfiguration.Text, tscbPlatform.Text), tsbtnShowPrompt.Checked));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -99,6 +101,7 @@ namespace Lextm.MSBuildLaunchPad
 
             key.SetValue("Target", tscbTarget.Text);
             key.SetValue("Configuration", tscbConfiguration.Text);
+            key.SetValue("Platform", tscbPlatform.Text);
             key.SetValue("AutoHide", tsbtnAutoHide.Checked.ToString());
             key.SetValue("ShowPrompt", tsbtnShowPrompt.Checked.ToString());
         }
