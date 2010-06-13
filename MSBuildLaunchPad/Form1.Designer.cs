@@ -92,13 +92,14 @@
             // tscbPlatform
             // 
             this.tscbPlatform.Items.AddRange(new object[] {
+            "(empty)",
             "AnyCPU",
             "x86",
             "x64",
             "Itanium"});
             this.tscbPlatform.Name = "tscbPlatform";
             this.tscbPlatform.Size = new System.Drawing.Size(100, 27);
-            this.tscbPlatform.Text = "AnyCPU";
+            this.tscbPlatform.Text = "(empty)";
             // 
             // toolStrip2
             // 

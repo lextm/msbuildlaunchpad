@@ -35,7 +35,7 @@ namespace Lextm.MSBuildLaunchPad
 
             tscbTarget.Text = options.GetValue("Target", "Build").ToString();
             tscbConfiguration.Text = options.GetValue("Configuration", "Debug").ToString();
-            tscbPlatform.Text = options.GetValue("Platform", "AnyCPU").ToString();
+            tscbPlatform.Text = options.GetValue("Platform", "(empty)").ToString();
             tsbtnAutoHide.Checked = Convert.ToBoolean(options.GetValue("AutoHide", "False"), CultureInfo.InvariantCulture);
             tsbtnShowPrompt.Checked = Convert.ToBoolean(options.GetValue("ShowPrompt", "False"), CultureInfo.InvariantCulture);
             
@@ -82,7 +82,7 @@ namespace Lextm.MSBuildLaunchPad
             tsbtnStart.Enabled = false;
             tspbProgress.Style = ProgressBarStyle.Marquee;
             tspbProgress.MarqueeAnimationSpeed = 30; 
-            backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, string.Format(CultureInfo.InvariantCulture, @"/t:{0} /p:Configuration={1} /p:Platform={2}", tscbTarget.Text, tscbConfiguration.Text, tscbPlatform.Text), tsbtnShowPrompt.Checked));
+            backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, MSBuildTask.GenerateArgument(tscbTarget.Text, tscbConfiguration.Text, tscbPlatform.Text), tsbtnShowPrompt.Checked));
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace Lextm.MSBuildLaunchPad
 {
@@ -21,7 +23,7 @@ namespace Lextm.MSBuildLaunchPad
             _showPrompt = showPrompt;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
+        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         public void Execute()
         {
             string msBuildPath = FindMSBuildPath(_dotNetVersion);
@@ -37,7 +39,7 @@ namespace Lextm.MSBuildLaunchPad
                     FileName = msBuildPath,
                     WorkingDirectory = Path.GetDirectoryName(_fileName),
                     Arguments =
-                        string.Format(
+                        String.Format(
                             CultureInfo.InvariantCulture,
                             "\"{0}\" {1} /l:MSBuildErrorListLogger,\"{2}\\MSBuildShellExtension.dll\"",
                             _fileName,
@@ -58,7 +60,7 @@ namespace Lextm.MSBuildLaunchPad
             {
                 current = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.System),
-                    string.Format(CultureInfo.InvariantCulture, @"..\Microsoft.NET\Framework\{0}\MSBuild.exe", next));
+                    String.Format(CultureInfo.InvariantCulture, @"..\Microsoft.NET\Framework\{0}\MSBuild.exe", next));
 
                 // If the exact match version is not installed, switch to a newer version.
                 if (version == "v2.0.50727")
@@ -83,6 +85,18 @@ namespace Lextm.MSBuildLaunchPad
             while (!File.Exists(current));
 
             return current;
+        }
+
+        public static string GenerateArgument(string target, string configuration, string platform)
+        {
+            StringBuilder result = new StringBuilder();
+            result.AppendFormat(CultureInfo.InvariantCulture, @"/t:{0} /p:Configuration={1}", target, configuration);
+            if (platform != "(empty)")
+            {
+                result.AppendFormat(CultureInfo.InvariantCulture, @" /p:Platform={0}", platform);
+            }
+
+            return result.ToString();
         }
     }
 }
