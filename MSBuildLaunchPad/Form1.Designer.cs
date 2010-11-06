@@ -91,6 +91,7 @@
             // 
             // tscbPlatform
             // 
+            this.tscbPlatform.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tscbPlatform.Items.AddRange(new object[] {
             "(empty)",
             "AnyCPU",
@@ -99,7 +100,6 @@
             "Itanium"});
             this.tscbPlatform.Name = "tscbPlatform";
             this.tscbPlatform.Size = new System.Drawing.Size(100, 27);
-            this.tscbPlatform.Text = "(empty)";
             // 
             // toolStrip2
             // 
@@ -124,13 +124,13 @@
             // 
             // tscbVersion
             // 
+            this.tscbVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tscbVersion.Items.AddRange(new object[] {
             "v2.0.50727",
             "v3.5",
             "v4.0.30319"});
             this.tscbVersion.Name = "tscbVersion";
             this.tscbVersion.Size = new System.Drawing.Size(121, 25);
-            this.tscbVersion.Text = "v2.0.50727";
             // 
             // toolStripSeparator1
             // 
