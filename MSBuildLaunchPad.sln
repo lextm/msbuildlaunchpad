@@ -1,6 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+# SharpDevelop 4.0.0.6933
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuildLaunchPad", "MSBuildLaunchPad\MSBuildLaunchPad.csproj", "{5A146EA4-0A23-46C5-B857-BDEA095F4A8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{861A1DDA-A7B1-4730-AE29-AE4CD15E0C97}"
