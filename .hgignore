@@ -1,2 +1,5 @@
 glob:*/bin/*
 glob:*/obj/*
+syntax: glob
+bin/*
+launchpad.iss

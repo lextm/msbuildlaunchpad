@@ -12,14 +12,16 @@ namespace Lextm.MSBuildLaunchPad
     {
         private string FileName { get; set; }
 
-        private const string Title = "MSBuild Launch Pad (Version: {1}) - {0}";
+        private const string Title = "MSBuild Launch Pad - {0}";
+        private const string TitleAdmin = "MSBuild Launch Pad (Administrator) - {0}";
+        private const string About = "About MSBuild Launch Pad (Version: {0})";
         private const string PadKey = @"Software\LeXtudio\MSBuildLaunchPad\MainForm";
 
         public Form1(string fileName)
         {
             FileName = fileName;
             InitializeComponent();
-            IParser parser = ParserFactory.Parse(fileName);
+            var parser = ParserFactory.Parse(fileName);
             tscbVersion.SelectedIndex = parser.Version;
             foreach (var target in parser.Targets)
             {
@@ -85,12 +87,14 @@ namespace Lextm.MSBuildLaunchPad
             backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, MSBuildTask.GenerateArgument(tscbTarget.Text, tscbConfiguration.Text, tscbPlatform.Text), tsbtnShowPrompt.Checked));
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1Load(object sender, EventArgs e)
         {
-            Text = string.Format(CultureInfo.InvariantCulture, Title, Path.GetFileName(FileName), Assembly.GetExecutingAssembly().GetName().Version);
+            Text = string.Format(CultureInfo.InvariantCulture, UacHelper.IsProcessElevated ? TitleAdmin : Title, Path.GetFileName(FileName));
+            tsbtnAbout.ToolTipText = string.Format(CultureInfo.InvariantCulture, About,
+                                                   Assembly.GetExecutingAssembly().GetName().Version);
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form1FormClosing(object sender, FormClosingEventArgs e)
         {
             // save settings
             RegistryKey key = Registry.CurrentUser.CreateSubKey(PadKey);
