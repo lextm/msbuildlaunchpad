@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using Lextm.MSBuildLaunchPad.Configuration;
 
 namespace Lextm.MSBuildLaunchPad
 {
@@ -32,7 +33,7 @@ namespace Lextm.MSBuildLaunchPad
                 return;
             }
 
-            Process p = new Process
+            var p = new Process
             {
                 StartInfo =
                 {
@@ -60,19 +61,19 @@ namespace Lextm.MSBuildLaunchPad
             {
                 current = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.System),
-                    String.Format(CultureInfo.InvariantCulture, @"..\Microsoft.NET\Framework\{0}\MSBuild.exe", next));
+                    String.Format(CultureInfo.InvariantCulture, @"..\Microsoft.NET\Framework\v{0}\MSBuild.exe", next));
 
                 // If the exact match version is not installed, switch to a newer version.
-                if (version == "v2.0.50727")
+                if (version == ToolElement.Tool20Version)
                 {
                     // TODO: in theory, this should never hit.
-                    next = "v3.5";
+                    next = ToolElement.Tool35Version;
                 }
-                else if (version == "v3.5")
+                else if (version == ToolElement.Tool35Version)
                 {
-                    next = "v4.0.30319";
+                    next = ToolElement.Tool40Version;
                 }
-                else if (version == "v4.0.30319")
+                else if (version == ToolElement.Tool40Version)
                 {
                     next = null;
                 }
@@ -89,7 +90,7 @@ namespace Lextm.MSBuildLaunchPad
 
         public static string GenerateArgument(string target, string configuration, string platform)
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             result.AppendFormat(CultureInfo.InvariantCulture, @"/t:{0} /p:Configuration={1}", target, configuration);
             if (platform != "(empty)")
             {
