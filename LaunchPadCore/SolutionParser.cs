@@ -27,6 +27,7 @@ namespace Lextm.MSBuildLaunchPad
             int slnVersion = int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
             switch (slnVersion)
             {
+                case 12:
                 case 11:
                     _version = 2;
                     break;

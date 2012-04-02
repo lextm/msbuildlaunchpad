@@ -121,7 +121,6 @@
   <data name="build" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\build.proj;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="DomainModel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DomainModel.csproj;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -139,5 +138,8 @@
   </data>
   <data name="SharpSnmpLib1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SharpSnmpLib.sln;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MSBuildLaunchPad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MSBuildLaunchPad.sln;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
