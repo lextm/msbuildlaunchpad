@@ -119,16 +119,12 @@
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(43, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(51, 22);
             this.toolStripLabel2.Text = "MSBuild";
             // 
             // tscbVersion
             // 
             this.tscbVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tscbVersion.Items.AddRange(new object[] {
-            "v2.0.50727",
-            "v3.5",
-            "v4.0.30319"});
             this.tscbVersion.Name = "tscbVersion";
             this.tscbVersion.Size = new System.Drawing.Size(121, 25);
             // 
@@ -143,7 +139,7 @@
             this.tsbtnShowPrompt.Image = global::Lextm.MSBuildLaunchPad.Properties.Resources.FullView;
             this.tsbtnShowPrompt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnShowPrompt.Name = "tsbtnShowPrompt";
-            this.tsbtnShowPrompt.Size = new System.Drawing.Size(90, 22);
+            this.tsbtnShowPrompt.Size = new System.Drawing.Size(99, 22);
             this.tsbtnShowPrompt.Text = "Show Prompt";
             // 
             // tsbtnAutoHide
@@ -152,7 +148,7 @@
             this.tsbtnAutoHide.Image = global::Lextm.MSBuildLaunchPad.Properties.Resources.Close;
             this.tsbtnAutoHide.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnAutoHide.Name = "tsbtnAutoHide";
-            this.tsbtnAutoHide.Size = new System.Drawing.Size(74, 22);
+            this.tsbtnAutoHide.Size = new System.Drawing.Size(81, 22);
             this.tsbtnAutoHide.Text = "Auto Hide";
             // 
             // tsbtnAbout

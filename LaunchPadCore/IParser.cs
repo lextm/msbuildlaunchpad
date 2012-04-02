@@ -4,7 +4,7 @@ namespace Lextm.MSBuildLaunchPad
 {
     public interface IParser
     {
-        int Version { get; }
+        string Version { get; }
         
         ICollection<string> Targets { get; }
     }

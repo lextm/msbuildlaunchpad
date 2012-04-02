@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -39,6 +40,13 @@
     <Compile Include="..\MSBuildLaunchPad\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Configuration\ScriptToolMappingElement.cs" />
+    <Compile Include="Configuration\ScriptToolMappingElementCollection.cs" />
+    <Compile Include="Configuration\SolutionFileMappingElementCollection.cs" />
+    <Compile Include="Configuration\LaunchPadSection.cs" />
+    <Compile Include="Configuration\SolutionFileMappingElement.cs" />
+    <Compile Include="Configuration\ToolElement.cs" />
+    <Compile Include="Configuration\ToolElementCollection.cs" />
     <Compile Include="GenericScriptParser.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="MSBuildScriptParser.cs" />

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using Lextm.MSBuildLaunchPad.Configuration;
 
 namespace Lextm.MSBuildLaunchPad
 {
     public class MSBuildScriptParser : IParser
     {
-        private readonly int _version;
+        private readonly string _version;
 
         public MSBuildScriptParser(string fileName)
         {
-            XmlDocument file = new XmlDocument();
+            var file = new XmlDocument();
             file.Load(fileName);
             if (file.DocumentElement == null || file.DocumentElement.Name != "Project")
             {
@@ -20,23 +21,21 @@ namespace Lextm.MSBuildLaunchPad
             string attribute = file.DocumentElement.GetAttribute("ToolsVersion");
             if (string.IsNullOrEmpty(attribute))
             {
-                _version = 0;
-            }
-            else if (attribute == "3.5")
-            {
-                _version = 1;
-            }
-            else if (attribute == "4.0")
-            {
-                _version = 2;
+                _version = ToolElement.Tool20Version;
             }
             else
             {
-                throw new ArgumentException("this is not a csproj/vbproj file", "fileName");
+                var element = LaunchPadSection.GetSection().ScriptToolMappings[attribute];
+                if (element == null)
+                {
+                    throw new ArgumentException("this is not a csproj/vbproj file", "fileName");
+                }
+
+                _version = element.Tool;
             }
         }
 
-        public int Version
+        public string Version
         {
             get { return _version; }
         }

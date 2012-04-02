@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Lextm.MSBuildLaunchPad.Configuration;
 using Microsoft.Win32;
 
 namespace Lextm.MSBuildLaunchPad
@@ -21,8 +22,14 @@ namespace Lextm.MSBuildLaunchPad
         {
             FileName = fileName;
             InitializeComponent();
+             
+            foreach (ToolElement tool in LaunchPadSection.GetSection().Tools)
+            {
+                tscbVersion.Items.Add(tool.Version);
+            }
+
             var parser = ParserFactory.Parse(fileName);
-            tscbVersion.SelectedIndex = parser.Version;
+            tscbVersion.SelectedIndex = LaunchPadSection.GetSection().Tools.GetIndexOf(parser.Version);
             foreach (var target in parser.Targets)
             {
                 tscbTarget.Items.Add(target);
@@ -62,7 +69,7 @@ namespace Lextm.MSBuildLaunchPad
 
         private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
         {
-            MSBuildTask task = (MSBuildTask)e.Argument;
+            var task = (MSBuildTask)e.Argument;
             task.Execute();
         }
 

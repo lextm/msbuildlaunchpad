@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
+using Lextm.MSBuildLaunchPad.Configuration;
 
 namespace Lextm.MSBuildLaunchPad
 {
@@ -13,7 +13,7 @@ namespace Lextm.MSBuildLaunchPad
             "rsion\\s(\\d*).00",
             RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
-        private readonly int _version;
+        private readonly string _version;
 
         public SolutionParser(string fileName)
         {
@@ -24,25 +24,17 @@ namespace Lextm.MSBuildLaunchPad
                 throw new ArgumentException("this is not a sln file", "fileName");
             }
 
-            int slnVersion = int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
-            switch (slnVersion)
+
+            var toolVersion = LaunchPadSection.GetSection().SolutionFileMappings[match.Groups[1].Value];
+            if (toolVersion == null)
             {
-                case 12:
-                case 11:
-                    _version = 2;
-                    break;
-                case 10:
-                    _version = 1;
-                    break;
-                case 9:
-                    _version = 0;
-                    break;
-                default:
-                    throw new ArgumentException("this file is not a sln file we support", "fileName");
+                throw new ArgumentException("this file is not a sln file we support", "fileName");
             }
+
+            _version = toolVersion.Tool;
         }
 
-        public int Version
+        public string Version
         {
             get { return _version; }
         }

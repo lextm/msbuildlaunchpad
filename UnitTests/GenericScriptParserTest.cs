@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Lextm.MSBuildLaunchPad.Configuration;
 using NUnit.Framework;
 
 namespace Lextm.MSBuildLaunchPad.UnitTests
@@ -13,7 +14,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new GenericScriptParser(tempFileName);
-            Assert.AreEqual(0, parser.Version);
+            Assert.AreEqual(ToolElement.Tool20Version, parser.Version);
             Assert.AreEqual(6, parser.Targets.Count);
         }
     }

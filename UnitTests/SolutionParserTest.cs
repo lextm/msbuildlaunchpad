@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Lextm.MSBuildLaunchPad.Configuration;
 using NUnit.Framework;
 
 namespace Lextm.MSBuildLaunchPad.UnitTests
@@ -13,7 +14,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new SolutionParser(tempFileName);
-            Assert.AreEqual(0, parser.Version);
+            Assert.AreEqual(ToolElement.Tool20Version, parser.Version);
         }
 
         [Test]
@@ -23,7 +24,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new SolutionParser(tempFileName);
-            Assert.AreEqual(1, parser.Version);
+            Assert.AreEqual(ToolElement.Tool35Version, parser.Version);
         }
 
         [Test]
@@ -33,7 +34,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new SolutionParser(tempFileName);
-            Assert.AreEqual(2, parser.Version);
+            Assert.AreEqual(ToolElement.Tool40Version, parser.Version);
         }
 
         [Test]
@@ -43,7 +44,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             var tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new SolutionParser(tempFileName);
-            Assert.AreEqual(2, parser.Version);
+            Assert.AreEqual(ToolElement.Tool40Version, parser.Version);
         }
     }
 }
