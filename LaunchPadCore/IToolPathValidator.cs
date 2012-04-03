@@ -1,9 +1,9 @@
+using Lextm.MSBuildLaunchPad.Configuration;
+
 namespace Lextm.MSBuildLaunchPad
 {
     public interface IToolPathValidator
     {
-        string FullPath { get; set; }
-        bool IsValid { get; }
-        string Version { get; set; }
+        bool Validate(ToolElement tool);
     }
 }

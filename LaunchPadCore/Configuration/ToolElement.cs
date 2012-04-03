@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 
 namespace Lextm.MSBuildLaunchPad.Configuration
@@ -12,6 +13,16 @@ namespace Lextm.MSBuildLaunchPad.Configuration
         public string Version
         {
             get { return (string)base["version"]; }
+        }
+
+        /// <summary>
+        /// Gets the Version setting.
+        /// </summary>
+        [ConfigurationProperty("path", IsRequired = true)]
+        [StringValidator]
+        public string Path
+        {
+            get { return Environment.ExpandEnvironmentVariables((string)base["path"]); }
         }
 
         public const string Tool20Version = "2.0.50727";

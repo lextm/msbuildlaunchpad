@@ -8,21 +8,34 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
     [TestFixture]
     public class MSBuildTaskTestFixture
     {
+        private ToolElement DotNet20
+        {
+            get { return LaunchPadSection.GetSection().Tools[0]; }
+        }
+
+        private ToolElement DotNet35
+        {
+            get { return LaunchPadSection.GetSection().Tools[1]; }
+        }
+
+        private ToolElement DotNet40
+        {
+            get { return LaunchPadSection.GetSection().Tools[2]; }
+        }
+
         [Test]
         public void TestGetTool_20File_40Tool()
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // only .NET 4 or .NET 4.5 is installed.
-            var valids = new Queue<bool>(new[] {false, false, true});
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] {".net 4"});
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 4", task.FindMSBuildPath(ToolElement.Tool20Version));
+            Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
         }
 
         [Test]
@@ -30,16 +43,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // only .NET 4 or .NET 4.5 is installed.
-            var valids = new Queue<bool>(new[] { false, true });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 4", task.FindMSBuildPath(ToolElement.Tool35Version));
+            Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
         }
 
         [Test]
@@ -47,16 +58,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // only .NET 4 or .NET 4.5 is installed.
-            var valids = new Queue<bool>(new[] { true });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 4", task.FindMSBuildPath(ToolElement.Tool35Version));
+            Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
         }
 
         [Test]
@@ -64,16 +73,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // only .NET 2 is installed.
-            var valids = new Queue<bool>(new[] { true });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 2" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 2", task.FindMSBuildPath(ToolElement.Tool20Version));
+            Assert.AreEqual(DotNet20.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
         }
 
         [Test]
@@ -81,13 +88,11 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // only .NET 2 is installed.
-            var valids = new Queue<bool>(new[] { false, false });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 35", ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(null, task.FindMSBuildPath(ToolElement.Tool35Version));
@@ -98,13 +103,11 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // only .NET 2 is installed.
-            var valids = new Queue<bool>(new[] { false });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(null, task.FindMSBuildPath(ToolElement.Tool40Version));
@@ -115,16 +118,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // .NET 3.5 is installed.
-            var valids = new Queue<bool>(new[] { true, true, false });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 2", ".net 35", ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 2", task.FindMSBuildPath(ToolElement.Tool20Version));
+            Assert.AreEqual(DotNet20.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
         }
 
         [Test]
@@ -132,16 +133,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // .NET 3.5 is installed.
-            var valids = new Queue<bool>(new[] { true, false });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 35", ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 35", task.FindMSBuildPath(ToolElement.Tool35Version));
+            Assert.AreEqual(DotNet35.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
         }
 
         [Test]
@@ -149,13 +148,11 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
-
+            
             // .NET 3.5 is installed.
-            var valids = new Queue<bool>(new[] { false });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(null, task.FindMSBuildPath(ToolElement.Tool40Version));
@@ -166,16 +163,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // .NET 2 and 4/4.5 is installed.
-            var valids = new Queue<bool>(new[] { true, false, true });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 2", ".net 35", ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 2", task.FindMSBuildPath(ToolElement.Tool20Version));
+            Assert.AreEqual(DotNet20.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
         }
 
         [Test]
@@ -183,16 +178,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
-
+            
             // .NET 2 and 4/4.5 is installed.
-            var valids = new Queue<bool>(new[] { true, false, true });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 4", task.FindMSBuildPath(ToolElement.Tool35Version));
+            Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
         }
 
         [Test]
@@ -200,16 +193,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // .NET 2 and 4/4.5 is installed.
-            var valids = new Queue<bool>(new[] { true });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 4", task.FindMSBuildPath(ToolElement.Tool40Version));
+            Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool40Version));
         }
 
         [Test]
@@ -217,16 +208,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // .NET 3.5 and 4/4.5 is installed.
-            var valids = new Queue<bool>(new[] { true, true, true });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 2", ".net 35", ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 2", task.FindMSBuildPath(ToolElement.Tool20Version));
+            Assert.AreEqual(DotNet20.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
         }
 
         [Test]
@@ -234,16 +223,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // .NET 3.5 and 4/4.5 is installed.
-            var valids = new Queue<bool>(new[] { true, true });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 35", ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 35", task.FindMSBuildPath(ToolElement.Tool35Version));
+            Assert.AreEqual(DotNet35.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
         }
 
         [Test]
@@ -251,16 +238,14 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
         {
             var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
             var mock = new Mock<IToolPathValidator>();
-            mock.SetupProperty(validator => validator.Version);
 
             // .NET 3.5 and 4/4.5 is installed.
-            var valids = new Queue<bool>(new[] { true });
-            mock.SetupGet(validator => validator.IsValid).Returns(valids.Dequeue);
-            var paths = new Queue<string>(new[] { ".net 4" });
-            mock.SetupGet(validator => validator.FullPath).Returns(paths.Dequeue);
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
             task.Validator = mock.Object;
 
-            Assert.AreEqual(".net 4", task.FindMSBuildPath(ToolElement.Tool40Version));
+            Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool40Version));
         }
     }
 }

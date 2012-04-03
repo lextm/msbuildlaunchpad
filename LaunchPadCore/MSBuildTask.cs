@@ -66,10 +66,9 @@ namespace Lextm.MSBuildLaunchPad
                     continue;
                 }
 
-                Validator.Version = tool.Version;
-                if (Validator.IsValid)
+                if (Validator.Validate(tool))
                 {
-                    return Validator.FullPath;
+                    return tool.Path;
                 }
             }
 
