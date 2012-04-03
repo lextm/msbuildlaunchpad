@@ -16,6 +16,8 @@
     <SourceAnalysisOverrideSettingsFile>D:\msbuildlaunchpad\MSBuildLaunchPad\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <RunSourceAnalysis>False</RunSourceAnalysis>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -110,6 +112,7 @@ copy "$(ProjectDir)\..\lib\MSbuildShellExtension.dll" "$(TargetDir)"
 copy "$(ProjectDir)\..\lib\NLog.dll" "$(TargetDir)"
 copy "$(ProjectDir)\Resources\MSBuild_APPICON.ico" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

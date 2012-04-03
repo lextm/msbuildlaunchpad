@@ -3,3 +3,11 @@ glob:*/obj/*
 syntax: glob
 bin/*
 launchpad.iss
+*.suo
+packages/*
+_ReSharper*/*
+*.user
+*.pidb
+*.userprefs
+*.docstates
+*.dotCover

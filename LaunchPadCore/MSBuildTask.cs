@@ -22,6 +22,7 @@ namespace Lextm.MSBuildLaunchPad
             _dotNetVersion = dotNetVersion;
             _configuration = task;
             _showPrompt = showPrompt;
+            Validator = new ToolPathValidator();
         }
 
         [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
@@ -53,39 +54,26 @@ namespace Lextm.MSBuildLaunchPad
             p.WaitForExit();
         }
 
-        private static string FindMSBuildPath(string version)
+        public IToolPathValidator Validator { get; set; }
+
+        public string FindMSBuildPath(string version)
         {
-            string next = version;
-            string current;
-            do
+            var current = new Version(version);
+            foreach (ToolElement tool in LaunchPadSection.GetSection().Tools)
             {
-                current = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.System),
-                    String.Format(CultureInfo.InvariantCulture, @"..\Microsoft.NET\Framework\v{0}\MSBuild.exe", next));
+                if (new Version(tool.Version) < current)
+                {
+                    continue;
+                }
 
-                // If the exact match version is not installed, switch to a newer version.
-                if (version == ToolElement.Tool20Version)
+                Validator.Version = tool.Version;
+                if (Validator.IsValid)
                 {
-                    // TODO: in theory, this should never hit.
-                    next = ToolElement.Tool35Version;
+                    return Validator.FullPath;
                 }
-                else if (version == ToolElement.Tool35Version)
-                {
-                    next = ToolElement.Tool40Version;
-                }
-                else if (version == ToolElement.Tool40Version)
-                {
-                    next = null;
-                }
-                else
-                {
-                    // no msbuild found.
-                    return null;
-                }
-            } 
-            while (!File.Exists(current));
+            }
 
-            return current;
+            return null;
         }
 
         public static string GenerateArgument(string target, string configuration, string platform)
