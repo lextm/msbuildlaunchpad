@@ -46,7 +46,7 @@ namespace Lextm.MSBuildLaunchPad
             tscbConfiguration.Text = options.GetValue("Configuration", "Debug").ToString();
             tscbPlatform.Text = options.GetValue("Platform", "(empty)").ToString();
             tsbtnAutoHide.Checked = Convert.ToBoolean(options.GetValue("AutoHide", "False"), CultureInfo.InvariantCulture);
-            tsbtnShowPrompt.Checked = Convert.ToBoolean(options.GetValue("ShowPrompt", "False"), CultureInfo.InvariantCulture);
+            tsbtnShowPrompt.Checked = Convert.ToBoolean(options.GetValue("ShowPrompt", "True"), CultureInfo.InvariantCulture);
             
             // Find MSBuild Shell Extension settings.
             RegistryKey editor = Registry.CurrentUser.OpenSubKey(@"Software\Ardal\MSBuildShellExtension\Editors\Notepad");
@@ -89,6 +89,11 @@ namespace Lextm.MSBuildLaunchPad
         private void TsbtnStartClick(object sender, EventArgs e)
         {
             tsbtnStart.Enabled = false;
+            if (string.IsNullOrEmpty(tscbPlatform.Text))
+            {
+                tscbPlatform.Text = "(empty)";
+            }
+
             tspbProgress.Style = ProgressBarStyle.Marquee;
             tspbProgress.MarqueeAnimationSpeed = 30; 
             backgroundWorker1.RunWorkerAsync(new MSBuildTask(FileName, tscbVersion.Text, MSBuildTask.GenerateArgument(tscbTarget.Text, tscbConfiguration.Text, tscbPlatform.Text), tsbtnShowPrompt.Checked));
