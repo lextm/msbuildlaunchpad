@@ -235,7 +235,7 @@ function InitializeSetup(): Boolean;
 var
   oldVersion: String;
   uninstaller: String;
-  ErrorCode: Integer;
+  ResultCode, ErrorCode: Integer;
   compareResult: Integer;
 begin
   if IsSafeModeBoot then
@@ -319,6 +319,8 @@ begin
 end;
 
 function InitializeUninstall(): Boolean;
+var
+  ResultCode: Integer;
 begin
   if IsSafeModeBoot then
   begin
