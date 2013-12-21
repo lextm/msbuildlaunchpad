@@ -28,7 +28,17 @@ namespace Lextm.MSBuildLaunchPad
                 tscbVersion.Items.Add(tool.Version);
             }
 
-            var parser = ParserFactory.Parse(fileName);
+            IParser parser = null;
+            try
+            {
+                parser = ParserFactory.Parse(fileName);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An error occurred and the project file cannot be parsed");
+                Application.Exit();
+            }
+
             tscbVersion.SelectedIndex = LaunchPadSection.GetSection().Tools.GetIndexOf(parser.Version);
             foreach (var target in parser.Targets)
             {
