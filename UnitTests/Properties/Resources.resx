@@ -142,4 +142,7 @@
   <data name="MSBuildLaunchPad" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MSBuildLaunchPad.sln;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Obfuscar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Obfuscar.sln;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

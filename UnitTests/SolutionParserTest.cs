@@ -46,5 +46,15 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             var parser = new SolutionParser(tempFileName);
             Assert.AreEqual(ToolElement.Tool40Version, parser.Version);
         }
+
+        [Test]
+        public void TestVs12Sln()
+        {
+            var bytes = Properties.Resources.Obfuscar;
+            var tempFileName = Path.GetTempFileName();
+            File.WriteAllBytes(tempFileName, bytes);
+            var parser = new SolutionParser(tempFileName);
+            Assert.AreEqual(ToolElement.Tool120Version, parser.Version);
+        }
     }
 }

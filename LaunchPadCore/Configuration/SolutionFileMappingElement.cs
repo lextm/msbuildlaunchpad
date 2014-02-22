@@ -7,7 +7,7 @@ namespace Lextm.MSBuildLaunchPad.Configuration
         /// <summary>
         /// Gets the Name setting.
         /// </summary>
-        [ConfigurationProperty("solutionFileVersion", IsRequired = true, IsKey = true)]
+        [ConfigurationProperty("solutionFileVersion", IsRequired = true)]
         [StringValidator]
         public string SolutionFileVersion
         {

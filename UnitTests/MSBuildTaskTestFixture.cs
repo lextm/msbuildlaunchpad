@@ -23,6 +23,11 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             get { return LaunchPadSection.GetSection().Tools[2]; }
         }
 
+        private ToolElement DotNet120
+        {
+            get { return LaunchPadSection.GetSection().Tools[3]; }
+        }
+
         [Test]
         public void TestGetTool_20File_40Tool()
         {
@@ -33,6 +38,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
@@ -48,6 +54,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
@@ -63,6 +70,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
@@ -78,6 +86,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet20.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
@@ -93,6 +102,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(null, task.FindMSBuildPath(ToolElement.Tool35Version));
@@ -108,6 +118,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(null, task.FindMSBuildPath(ToolElement.Tool40Version));
@@ -123,6 +134,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet20.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
@@ -138,6 +150,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet35.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
@@ -153,6 +166,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(false);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(null, task.FindMSBuildPath(ToolElement.Tool40Version));
@@ -168,6 +182,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet20.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
@@ -183,6 +198,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
@@ -198,6 +214,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(false);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool40Version));
@@ -213,6 +230,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet20.Path, task.FindMSBuildPath(ToolElement.Tool20Version));
@@ -228,6 +246,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet35.Path, task.FindMSBuildPath(ToolElement.Tool35Version));
@@ -243,9 +262,42 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
             mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
             task.Validator = mock.Object;
 
             Assert.AreEqual(DotNet40.Path, task.FindMSBuildPath(ToolElement.Tool40Version));
+        }
+
+        [Test]
+        public void TestGetTool_120File_20_35_40Tool()
+        {
+            var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
+            var mock = new Mock<IToolPathValidator>();
+
+            // .NET 3.5 and 4/4.5 is installed.
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(false);
+            task.Validator = mock.Object;
+
+            Assert.AreEqual(DotNet120.Path, task.FindMSBuildPath(ToolElement.Tool120Version));
+        }
+
+        [Test]
+        public void TestGetTool_120File_20_35_40_120Tool()
+        {
+            var task = new MSBuildTask("test", ToolElement.Tool20Version, "test", true);
+            var mock = new Mock<IToolPathValidator>();
+
+            // .NET 3.5 and 4/4.5 is installed.
+            mock.Setup(validator => validator.Validate(DotNet20)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet35)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet40)).Returns(true);
+            mock.Setup(validator => validator.Validate(DotNet120)).Returns(true);
+            task.Validator = mock.Object;
+
+            Assert.AreEqual(DotNet120.Path, task.FindMSBuildPath(ToolElement.Tool120Version));
         }
     }
 }

@@ -28,5 +28,6 @@ namespace Lextm.MSBuildLaunchPad.Configuration
         public const string Tool20Version = "2.0.50727";
         public const string Tool35Version = "3.5";
         public const string Tool40Version = "4.0.30319";
+        public const string Tool120Version = "12.0";
     }
 }
