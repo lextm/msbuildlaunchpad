@@ -36,7 +36,7 @@ namespace Lextm.MSBuildLaunchPad
             catch (Exception)
             {
                 MessageBox.Show("An error occurred and the project file cannot be parsed");
-                Application.Exit();
+                Environment.Exit(-1);
             }
 
             tscbVersion.SelectedIndex = LaunchPadSection.GetSection().Tools.GetIndexOf(parser.Version);

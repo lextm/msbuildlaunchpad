@@ -78,10 +78,10 @@ namespace Lextm.MSBuildLaunchPad
         public static string GenerateArgument(string target, string configuration, string platform)
         {
             var result = new StringBuilder();
-            result.AppendFormat(CultureInfo.InvariantCulture, @"/t:{0} /p:Configuration={1}", target, configuration);
+            result.AppendFormat(CultureInfo.InvariantCulture, "/t:\"{0}\" /p:Configuration=\"{1}\"", target, configuration);
             if (platform != "(empty)")
             {
-                result.AppendFormat(CultureInfo.InvariantCulture, @" /p:Platform={0}", platform);
+                result.AppendFormat(CultureInfo.InvariantCulture, " /p:Platform=\"{0}\"", platform);
             }
 
             return result.ToString();
