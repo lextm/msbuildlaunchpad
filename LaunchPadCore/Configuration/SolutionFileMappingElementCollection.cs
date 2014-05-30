@@ -27,7 +27,31 @@ namespace Lextm.MSBuildLaunchPad.Configuration
 
         public new SolutionFileMappingElement this[string name]
         {
-            get { return (SolutionFileMappingElement)BaseGet(name); }
+            get
+            {
+                var exact = (SolutionFileMappingElement)BaseGet(name);
+                if (exact == null)
+                {
+                    var parts = name.Split('|');
+                    foreach (SolutionFileMappingElement item in this)
+                    {
+                        if (item.SolutionFileVersion == parts[0] + "|*")
+                        {
+                            return item;
+                        }
+                    }
+
+                    foreach (SolutionFileMappingElement item in this)
+                    {
+                        if (item.SolutionFileVersion == "*|*")
+                        {
+                            return item;
+                        }
+                    }
+                }
+
+                return exact;
+            }
         }
 
         protected override ConfigurationElement CreateNewElement()

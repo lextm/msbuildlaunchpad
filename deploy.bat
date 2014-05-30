@@ -1,5 +1,5 @@
-set msBuildDir=%WINDIR%\Microsoft.NET\Framework\v4.0.30319
-call %MSBuildDir%\msbuild msbuildlaunchpad.sln /p:Configuration=Release /t:Rebuild
+set msBuildDir=C:\Program Files (x86)\MSBuild\12.0\Bin
+call "%MSBuildDir%\msbuild.exe" msbuildlaunchpad.sln /p:Configuration=Release /t:Rebuild
 @IF %ERRORLEVEL% NEQ 0 PAUSE
 
 mkdir .\bin

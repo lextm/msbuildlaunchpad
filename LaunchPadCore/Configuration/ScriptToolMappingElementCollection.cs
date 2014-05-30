@@ -27,7 +27,22 @@ namespace Lextm.MSBuildLaunchPad.Configuration
 
         public new ScriptToolMappingElement this[string name]
         {
-            get { return (ScriptToolMappingElement)BaseGet(name); }
+            get
+            {
+                var exact = (ScriptToolMappingElement)BaseGet(name);
+                if (exact == null)
+                {
+                    foreach (ScriptToolMappingElement item in this)
+                    {
+                        if (item.ScriptToolVersion == "*")
+                        {
+                            return item;
+                        }
+                    }
+                }
+
+                return exact;
+            }
         }
 
         protected override ConfigurationElement CreateNewElement()

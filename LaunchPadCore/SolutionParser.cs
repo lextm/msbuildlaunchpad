@@ -34,7 +34,7 @@ namespace Lextm.MSBuildLaunchPad
             var toolVersion = LaunchPadSection.GetSection().SolutionFileMappings[key];
             if (toolVersion == null)
             {
-                throw new ArgumentException("this file is not a sln file we support", "fileName");
+                throw new ArgumentException(string.Format("this file is not a sln file we support. Key: {0}", key), "fileName");
             }
 
             _version = toolVersion.Tool;
