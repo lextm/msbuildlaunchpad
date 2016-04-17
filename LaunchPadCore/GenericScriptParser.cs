@@ -22,7 +22,7 @@ namespace Lextm.MSBuildLaunchPad
             string attribute = file.DocumentElement.GetAttribute("ToolsVersion");
             if (string.IsNullOrEmpty(attribute))
             {
-                _version = ToolElement.Tool20Version;
+                _version = Tool.Tool20Version;
             }
             else
             {

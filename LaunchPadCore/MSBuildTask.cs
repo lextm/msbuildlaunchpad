@@ -5,7 +5,8 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Lextm.MSBuildLaunchPad.Configuration;
+using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace Lextm.MSBuildLaunchPad
 {
@@ -59,7 +60,7 @@ namespace Lextm.MSBuildLaunchPad
         public string FindMSBuildPath(string version)
         {
             var current = new Version(version);
-            foreach (ToolElement tool in LaunchPadSection.GetSection().Tools)
+            foreach (var tool in Tools)
             {
                 if (new Version(tool.Version) < current)
                 {
@@ -85,6 +86,35 @@ namespace Lextm.MSBuildLaunchPad
             }
 
             return result.ToString();
+        }
+
+        private static List<Tool> _tools;
+
+        public static List<Tool> Tools
+        {
+            get
+            {
+                if (_tools != null)
+                {
+                    return _tools;
+                }
+
+                var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\MSBuild\ToolsVersions");
+                if (registryKey == null)
+                {
+                    return new List<Tool>(0);
+                }
+
+                _tools = new List<Tool>(registryKey.SubKeyCount);
+                var keys = registryKey.GetSubKeyNames();
+                foreach (var key in keys)
+                {
+                    _tools.Add(new Tool(key, (string)registryKey.OpenSubKey(key).GetValue("MSBuildToolsPath")));
+                }
+
+                _tools.Sort();
+                return _tools;
+            }
         }
     }
 }

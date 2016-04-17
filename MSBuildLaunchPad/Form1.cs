@@ -23,7 +23,7 @@ namespace Lextm.MSBuildLaunchPad
             FileName = fileName;
             InitializeComponent();
              
-            foreach (ToolElement tool in LaunchPadSection.GetSection().Tools)
+            foreach (Tool tool in MSBuildTask.Tools)
             {
                 tscbVersion.Items.Add(tool.Version);
             }
@@ -39,7 +39,7 @@ namespace Lextm.MSBuildLaunchPad
                 Environment.Exit(-1);
             }
 
-            tscbVersion.SelectedIndex = LaunchPadSection.GetSection().Tools.GetIndexOf(parser.Version);
+            tscbVersion.SelectedIndex = MSBuildTask.Tools.FindIndex(tool => tool.Version == parser.Version);
             foreach (var target in parser.Targets)
             {
                 tscbTarget.Items.Add(target);

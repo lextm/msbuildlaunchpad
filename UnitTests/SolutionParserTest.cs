@@ -14,7 +14,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new SolutionParser(tempFileName);
-            Assert.AreEqual(ToolElement.Tool20Version, parser.Version);
+            Assert.AreEqual(Tool.Tool20Version, parser.Version);
         }
 
         [Test]
@@ -24,7 +24,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new SolutionParser(tempFileName);
-            Assert.AreEqual(ToolElement.Tool35Version, parser.Version);
+            Assert.AreEqual(Tool.Tool35Version, parser.Version);
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new SolutionParser(tempFileName);
-            Assert.AreEqual(ToolElement.Tool40Version, parser.Version);
+            Assert.AreEqual(Tool.Tool40Version, parser.Version);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             var tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new SolutionParser(tempFileName);
-            Assert.AreEqual(ToolElement.Tool40Version, parser.Version);
+            Assert.AreEqual(Tool.Tool40Version, parser.Version);
         }
 
         [Test]
@@ -54,7 +54,17 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             var tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, bytes);
             var parser = new SolutionParser(tempFileName);
-            Assert.AreEqual(ToolElement.Tool120Version, parser.Version);
+            Assert.AreEqual(Tool.Tool120Version, parser.Version);
+        }
+
+        [Test]
+        public void TestVs14Sln()
+        {
+            var bytes = Properties.Resources.VS2015;
+            var tempFileName = Path.GetTempFileName();
+            File.WriteAllBytes(tempFileName, bytes);
+            var parser = new SolutionParser(tempFileName);
+            Assert.AreEqual(Tool.Tool140Version, parser.Version);
         }
     }
 }

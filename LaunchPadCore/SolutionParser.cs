@@ -13,7 +13,7 @@ namespace Lextm.MSBuildLaunchPad
             "rsion\\s(\\d*).00",
             RegexOptions.CultureInvariant | RegexOptions.Compiled);
         private static readonly Regex VersionDetector = new Regex(
-            "VisualStudioVersion\\s*=\\s*(?<version>(\\d+)(\\.(\\d+))*)",
+            "VisualStudioVersion\\s*=\\s*(?<version>(\\d+)\\.(\\d+))",
             RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
         private readonly string _version;

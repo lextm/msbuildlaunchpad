@@ -14,7 +14,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllText(tempFileName, content);
             var parser = new MSBuildScriptParser(tempFileName);
-            Assert.AreEqual(ToolElement.Tool20Version, parser.Version);
+            Assert.AreEqual(Tool.Tool20Version, parser.Version);
         }
 
         [Test]
@@ -24,7 +24,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllText(tempFileName, content);
             var parser = new MSBuildScriptParser(tempFileName);
-            Assert.AreEqual(ToolElement.Tool35Version, parser.Version);
+            Assert.AreEqual(Tool.Tool35Version, parser.Version);
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             string tempFileName = Path.GetTempFileName();
             File.WriteAllText(tempFileName, content);
             var parser = new MSBuildScriptParser(tempFileName);
-            Assert.AreEqual(ToolElement.Tool40Version, parser.Version);
+            Assert.AreEqual(Tool.Tool40Version, parser.Version);
         }
     }
 }

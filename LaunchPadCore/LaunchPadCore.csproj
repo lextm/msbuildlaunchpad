@@ -47,14 +47,13 @@
     <Compile Include="Configuration\SolutionFileMappingElementCollection.cs" />
     <Compile Include="Configuration\LaunchPadSection.cs" />
     <Compile Include="Configuration\SolutionFileMappingElement.cs" />
-    <Compile Include="Configuration\ToolElement.cs" />
-    <Compile Include="Configuration\ToolElementCollection.cs" />
     <Compile Include="GenericScriptParser.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="IToolPathValidator.cs" />
     <Compile Include="MSBuildScriptParser.cs" />
     <Compile Include="MSBuildTask.cs" />
     <Compile Include="ParserFactory.cs" />
+    <Compile Include="Tool.cs" />
     <Compile Include="ToolPathValidator.cs" />
     <Compile Include="SolutionParser.cs" />
   </ItemGroup>
