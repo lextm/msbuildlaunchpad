@@ -16,6 +16,7 @@ namespace Lextm.MSBuildLaunchPad
         static extern bool OpenProcessToken(IntPtr ProcessHandle, UInt32 DesiredAccess, out IntPtr TokenHandle);
 
         [DllImport("advapi32.dll", SetLastError = true)]
+        [CLSCompliant(false)]
         public static extern bool GetTokenInformation(IntPtr TokenHandle, TOKEN_INFORMATION_CLASS TokenInformationClass, IntPtr TokenInformation, uint TokenInformationLength, out uint ReturnLength);
 
         public enum TOKEN_INFORMATION_CLASS
