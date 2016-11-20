@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using Lextm.MSBuildLaunchPad.Configuration;
 
@@ -12,24 +13,32 @@ namespace Lextm.MSBuildLaunchPad
 
         public GenericScriptParser(string fileName)
         {
-            var file = OpenFile(fileName);
-
+            string directoryName;
+            var file = OpenFile(fileName, Environment.CurrentDirectory, out directoryName);
+            
             _version = ParseVersion(file);
 
-            foreach (var target in ParseTargets(file))
+            foreach (var target in ParseTargets(file, directoryName))
             {
                 _list.Add(target);
             }
         }
 
-        private static XmlDocument OpenFile(string fileName)
+        private static XmlDocument OpenFile(string fileName, string directoryName, out string newDirectoryName)
         {
+            if (!Path.IsPathRooted(fileName))
+            {
+                fileName = Path.Combine(directoryName, fileName);
+            }
+
             var file = new XmlDocument();
             file.Load(fileName);
             if (file.DocumentElement == null || file.DocumentElement.Name != "Project")
             {
                 throw new ArgumentException("this is not a proj file", "fileName");
             }
+
+            newDirectoryName = Path.GetDirectoryName(fileName);
 
             return file;
         }
@@ -53,7 +62,7 @@ namespace Lextm.MSBuildLaunchPad
             }
         }
 
-        private static IEnumerable<string> ParseTargets(XmlDocument file)
+        private static IEnumerable<string> ParseTargets(XmlDocument file, string directoryName)
         {
             foreach (XmlNode node in file.DocumentElement.ChildNodes)
             {
@@ -86,17 +95,17 @@ namespace Lextm.MSBuildLaunchPad
                     }
 
                     XmlDocument importFile;
-
+                    string importDirectoryName;
                     try
                     {
-                        importFile = OpenFile(project.Value);
+                        importFile = OpenFile(project.Value, directoryName, out importDirectoryName);
                     }
                     catch
                     {
                         continue;
                     }
 
-                    foreach (var target in ParseTargets(importFile))
+                    foreach (var target in ParseTargets(importFile, importDirectoryName))
                     {
                         yield return target;
                     }
