@@ -57,23 +57,50 @@ namespace Lextm.MSBuildLaunchPad
         {
             foreach (XmlNode node in file.DocumentElement.ChildNodes)
             {
-                if (node.Name != "Target")
+                if (node.Name == "Target")
                 {
-                    continue;
-                }
+                    if (node.Attributes == null)
+                    {
+                        continue;
+                    }
 
-                if (node.Attributes == null)
+                    XmlAttribute name = node.Attributes["Name"];
+                    if (name == null)
+                    {
+                        continue;
+                    }
+
+                    yield return name.Value;
+                }
+                else if (node.Name == "Import")
                 {
-                    continue;
-                }
+                    if (node.Attributes == null)
+                    {
+                        continue;
+                    }
 
-                XmlAttribute name = node.Attributes["Name"];
-                if (name == null)
-                {
-                    continue;
-                }
+                    XmlAttribute project = node.Attributes["Project"];
+                    if (project == null)
+                    {
+                        continue;
+                    }
 
-                yield return name.Value;
+                    XmlDocument importFile;
+
+                    try
+                    {
+                        importFile = OpenFile(project.Value);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    foreach (var target in ParseTargets(importFile))
+                    {
+                        yield return target;
+                    }
+                }
             }
         }
 
