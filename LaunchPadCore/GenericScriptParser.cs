@@ -12,6 +12,18 @@ namespace Lextm.MSBuildLaunchPad
 
         public GenericScriptParser(string fileName)
         {
+            var file = OpenFile(fileName);
+
+            _version = ParseVersion(file);
+
+            foreach (var target in ParseTargets(file))
+            {
+                _list.Add(target);
+            }
+        }
+
+        private static XmlDocument OpenFile(string fileName)
+        {
             var file = new XmlDocument();
             file.Load(fileName);
             if (file.DocumentElement == null || file.DocumentElement.Name != "Project")
@@ -19,10 +31,15 @@ namespace Lextm.MSBuildLaunchPad
                 throw new ArgumentException("this is not a proj file", "fileName");
             }
 
+            return file;
+        }
+
+        private static string ParseVersion(XmlDocument file)
+        {
             string attribute = file.DocumentElement.GetAttribute("ToolsVersion");
             if (string.IsNullOrEmpty(attribute))
             {
-                _version = Tool.Tool20Version;
+                return Tool.Tool20Version;
             }
             else
             {
@@ -32,9 +49,12 @@ namespace Lextm.MSBuildLaunchPad
                     throw new ArgumentException("this is not a proj file", "fileName");
                 }
 
-                _version = element.Tool;
+                return element.Tool;
             }
+        }
 
+        private static IEnumerable<string> ParseTargets(XmlDocument file)
+        {
             foreach (XmlNode node in file.DocumentElement.ChildNodes)
             {
                 if (node.Name != "Target")
@@ -53,7 +73,7 @@ namespace Lextm.MSBuildLaunchPad
                     continue;
                 }
 
-                _list.Add(name.Value);
+                yield return name.Value;
             }
         }
 
