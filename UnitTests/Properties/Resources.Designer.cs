@@ -107,6 +107,26 @@ namespace Lextm.MSBuildLaunchPad.UnitTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] import {
+            get {
+                object obj = ResourceManager.GetObject("import", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] importtargets {
+            get {
+                object obj = ResourceManager.GetObject("importtargets", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Lextm_CBC2_Full {
             get {
                 object obj = ResourceManager.GetObject("Lextm_CBC2_Full", resourceCulture);

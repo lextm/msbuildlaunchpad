@@ -83,6 +83,8 @@
     <None Include="Resources\ExpertManager.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\import.proj" />
+    <None Include="Resources\import.targets" />
     <None Include="Resources\SharpSnmpLib.csproj" />
   </ItemGroup>
   <ItemGroup>
