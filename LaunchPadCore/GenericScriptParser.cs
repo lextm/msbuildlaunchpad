@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using Lextm.MSBuildLaunchPad.Configuration;
 
@@ -12,6 +13,24 @@ namespace Lextm.MSBuildLaunchPad
 
         public GenericScriptParser(string fileName)
         {
+            string directoryName;
+            var file = OpenFile(fileName, Environment.CurrentDirectory, out directoryName);
+            
+            _version = ParseVersion(file);
+
+            foreach (var target in ParseTargets(file, directoryName))
+            {
+                _list.Add(target);
+            }
+        }
+
+        private static XmlDocument OpenFile(string fileName, string directoryName, out string newDirectoryName)
+        {
+            if (!Path.IsPathRooted(fileName))
+            {
+                fileName = Path.Combine(directoryName, fileName);
+            }
+
             var file = new XmlDocument();
             file.Load(fileName);
             if (file.DocumentElement == null || file.DocumentElement.Name != "Project")
@@ -19,10 +38,17 @@ namespace Lextm.MSBuildLaunchPad
                 throw new ArgumentException("this is not a proj file", "fileName");
             }
 
+            newDirectoryName = Path.GetDirectoryName(fileName);
+
+            return file;
+        }
+
+        private static string ParseVersion(XmlDocument file)
+        {
             string attribute = file.DocumentElement.GetAttribute("ToolsVersion");
             if (string.IsNullOrEmpty(attribute))
             {
-                _version = Tool.Tool20Version;
+                return Tool.Tool20Version;
             }
             else
             {
@@ -32,28 +58,58 @@ namespace Lextm.MSBuildLaunchPad
                     throw new ArgumentException("this is not a proj file", "fileName");
                 }
 
-                _version = element.Tool;
+                return element.Tool;
             }
+        }
 
+        private static IEnumerable<string> ParseTargets(XmlDocument file, string directoryName)
+        {
             foreach (XmlNode node in file.DocumentElement.ChildNodes)
             {
-                if (node.Name != "Target")
+                if (node.Name == "Target")
                 {
-                    continue;
-                }
+                    if (node.Attributes == null)
+                    {
+                        continue;
+                    }
 
-                if (node.Attributes == null)
+                    XmlAttribute name = node.Attributes["Name"];
+                    if (name == null)
+                    {
+                        continue;
+                    }
+
+                    yield return name.Value;
+                }
+                else if (node.Name == "Import")
                 {
-                    continue;
-                }
+                    if (node.Attributes == null)
+                    {
+                        continue;
+                    }
 
-                XmlAttribute name = node.Attributes["Name"];
-                if (name == null)
-                {
-                    continue;
-                }
+                    XmlAttribute project = node.Attributes["Project"];
+                    if (project == null)
+                    {
+                        continue;
+                    }
 
-                _list.Add(name.Value);
+                    XmlDocument importFile;
+                    string importDirectoryName;
+                    try
+                    {
+                        importFile = OpenFile(project.Value, directoryName, out importDirectoryName);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    foreach (var target in ParseTargets(importFile, importDirectoryName))
+                    {
+                        yield return target;
+                    }
+                }
             }
         }
 

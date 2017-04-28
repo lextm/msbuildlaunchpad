@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Target Name="Build">
+		<MSBuild Projects="$(MainSolution)" Targets="Build" />
+	</Target>
+	<Target Name="Clean">
+		<MSBuild Projects="$(MainSolution)" Targets="Clean" />
+	</Target>
+	<Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+	<Target Name="Test" DependsOnTargets="Build">
+		<Exec Command="$(NUnitPath) $(TestAssembly)" />
+	</Target>
+	<Target Name="Coverage" DependsOnTargets="Build">
+		<Exec Command="$(NCoverPath) $(NUnitPath) $(TestAssembly)" />
+	</Target>
+</Project>

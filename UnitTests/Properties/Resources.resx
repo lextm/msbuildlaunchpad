@@ -148,4 +148,10 @@
   <data name="VS2015" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VS2015.sln;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\import.proj;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="importtargets" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\import.targets;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

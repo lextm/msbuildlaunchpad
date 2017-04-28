@@ -16,5 +16,22 @@ namespace Lextm.MSBuildLaunchPad.UnitTests
             Assert.AreEqual(Tool.Tool20Version, parser.Version);
             Assert.AreEqual(6, parser.Targets.Count);
         }
+
+        [Test]
+        public void TestProjImport()
+        {
+            var tempPathName = Path.GetTempPath() + Path.GetRandomFileName();
+            Directory.CreateDirectory(tempPathName);
+            Directory.CreateDirectory(tempPathName + @"\build");
+
+            var projFileName = tempPathName + @"\import.proj";
+            var targetsFileName = tempPathName + @"\build\import.targets";
+            File.WriteAllBytes(projFileName, Properties.Resources.import);
+            File.WriteAllBytes(targetsFileName, Properties.Resources.importtargets);
+
+            var parser = new GenericScriptParser(projFileName);
+            Assert.AreEqual(Tool.Tool20Version, parser.Version);
+            Assert.AreEqual(6, parser.Targets.Count);
+        }
     }
 }

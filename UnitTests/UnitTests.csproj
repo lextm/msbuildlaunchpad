@@ -83,6 +83,8 @@
     <None Include="Resources\ExpertManager.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\import.proj" />
+    <None Include="Resources\import.targets" />
     <None Include="Resources\SharpSnmpLib.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\VS2015.sln" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
